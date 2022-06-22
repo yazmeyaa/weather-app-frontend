@@ -10,7 +10,7 @@ import { WeatherPreview } from './weatherPreview'
 
 export const WeatherContent = () => {
     const [weatherValues, setWeatherValues] = useState<IWeatherValues>()
-    const [cityName, setCityName] = useState<string>('Великий Новгород')
+    const [cityName, setCityName] = useState<string | null>(null)
 
     useLayoutEffect(() => {
         updateWeatherByGeoposition()
@@ -37,7 +37,7 @@ export const WeatherContent = () => {
             }
 
         }, _ => {
-            updateWeatherValues(cityName)
+            updateWeatherValues('London')
         } )
     }
 
@@ -65,7 +65,7 @@ export const WeatherContent = () => {
             <PageContentBlock>
                 <WeatherPreviewBlock>
 
-                    <SearchBlock cityName={cityName} setCityName={updateWeatherValues} />
+                    <SearchBlock cityName={cityName ?? 'London'} setCityName={updateWeatherValues} />
 
                     <WeatherPreviewCityName>
                         {cityName}
