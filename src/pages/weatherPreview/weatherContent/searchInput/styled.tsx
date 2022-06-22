@@ -28,9 +28,6 @@ export const SearchInput = styled.input`
         padding: 4px 6px;
         transition: .5s;
     }
-    &:focus{
-        min-width: 300px;
-    }
 `
 
 export const SearchButton = styled.button`

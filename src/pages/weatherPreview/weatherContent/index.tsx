@@ -13,44 +13,67 @@ export const WeatherContent = () => {
     const [cityName, setCityName] = useState<string>('Великий Новгород')
 
     useLayoutEffect(() => {
-        updateWeatherValues(cityName)
+        updateWeatherByGeoposition()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    async function updateWeatherValues(cityNameToSearch: string) {
+    async function updateWeatherByGeoposition() {
+        navigator.geolocation.getCurrentPosition( async (result) => {
+            const valuesFromBackend: AxiosResponse<IWeatherResponse, null> = await axios({
+                method: 'GET',
+                url: `${appConfig.backendUrl}/api/get_weather`,
+                params: {
+                    city: `${result.coords.latitude},${result.coords.longitude}`
+                }
+            })
 
-        const valuesFromBackend: AxiosResponse<IWeatherResponse, null> = await axios({
-            method: 'GET',
-            url: `${appConfig.backendUrl}/api/get_weather`,
-            params: {
-                city: cityNameToSearch
+            if (valuesFromBackend.status === 200) {
+                const values = valuesFromBackend.data.current
+                setCityName(valuesFromBackend.data.location.name)
+                setWeatherValues(values)
+
+            } else if (valuesFromBackend.status > 400) {
+                console.error('Неправильное имя города')
             }
-        })
 
-        if (valuesFromBackend.status === 200) {
-            const values = valuesFromBackend.data.current
-            setCityName(valuesFromBackend.data.location.name)
-            setWeatherValues(values)
-
-        } else if (valuesFromBackend.status > 400) {
-            console.error('Неправильное имя города')
-        }
-
+        }, _ => {
+            updateWeatherValues(cityName)
+        } )
     }
 
+    async function updateWeatherValues(cityNameToSearch: string) {
+                const valuesFromBackend: AxiosResponse<IWeatherResponse, null> = await axios({
+                    method: 'GET',
+                    url: `${appConfig.backendUrl}/api/get_weather`,
+                    params: {
+                        city: cityNameToSearch
+                    }
+                })
+
+                if (valuesFromBackend.status === 200) {
+                    const values = valuesFromBackend.data.current
+                    setCityName(valuesFromBackend.data.location.name)
+                    setWeatherValues(values)
+
+                } else if (valuesFromBackend.status > 400) {
+                    console.error('Неправильное имя города')
+                }
+
+            }
+
     return (
-        <PageContentBlock>
-            <WeatherPreviewBlock>
+            <PageContentBlock>
+                <WeatherPreviewBlock>
 
-                <SearchBlock cityName={cityName} setCityName={updateWeatherValues} />
+                    <SearchBlock cityName={cityName} setCityName={updateWeatherValues} />
 
-                <WeatherPreviewCityName>
-                    {cityName}
-                </WeatherPreviewCityName>
+                    <WeatherPreviewCityName>
+                        {cityName}
+                    </WeatherPreviewCityName>
 
-                { weatherValues && <WeatherPreview values={weatherValues} /> }
+                    {weatherValues && <WeatherPreview values={weatherValues} />}
 
-            </WeatherPreviewBlock>
-        </PageContentBlock>
-    )
-}
+                </WeatherPreviewBlock>
+            </PageContentBlock>
+        )
+    }
