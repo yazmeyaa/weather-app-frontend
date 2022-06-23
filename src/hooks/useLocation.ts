@@ -46,7 +46,7 @@ export const useLocation = () => {
         }
     }
 
-    async function updateWeatherValuesByCoords() {
+    async function updateWeatherValuesByCoords(highAccuracy: boolean) {
         navigator.geolocation.getCurrentPosition(async (result) => {
             const valuesFromBackend: AxiosResponse<IWeatherResponse, null> = await axios({
                 method: 'GET',
@@ -67,6 +67,8 @@ export const useLocation = () => {
 
         }, _ => {
             updateWeatherValuesByIP()
+        }, {
+            enableHighAccuracy: highAccuracy
         })
     }
 

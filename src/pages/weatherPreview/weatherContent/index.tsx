@@ -14,7 +14,7 @@ export const WeatherContent = () => {
          } = useLocation()
 
     useLayoutEffect(() => {
-        updateWeatherValuesByCoords()
+        updateWeatherValuesByCoords(true)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
