@@ -1,3 +1,4 @@
+import { fluidTypography } from 'components/fluidTypography'
 import styled from 'styled-components'
 
 export const SearchForm = styled.form`
@@ -12,6 +13,7 @@ export const SearchBlockBody = styled.div`
         display: flex;
         gap: .5rem; 
         flex-direction: column;
+        align-items: center;
     }
 `
 
@@ -32,8 +34,12 @@ export const SearchInput = styled.input`
 
 export const SearchButton = styled.button`
     &{
+        width: fit-content;
         flex-basis: content;
         flex: 0 0 content;
         text-transform: uppercase;
+        user-select: none;
+        padding: 6px 12px;
+        font-size: ${fluidTypography(1920, 320, 16, 24)};
     }
 `

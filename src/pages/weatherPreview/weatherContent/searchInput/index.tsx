@@ -34,7 +34,7 @@ export const SearchBlock: FC<ISearchBlockProps> = ({ setCityName, cityName }) =>
         <SearchForm onSubmit={requestCityName} >
             <SearchBlockBody>
                 <SearchInputLabel>
-                    <span>Введите название города</span>
+                    <span>Поиск города</span>
                     <SearchInput
                         placeholder={isInputFocused ? '🔍Введите сюда название города' : cityName}
                         type={'text'}

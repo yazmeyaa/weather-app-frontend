@@ -11,7 +11,7 @@ export const WeatherPreview: FC<IWeatherPreview> = ({ values }) => {
         <PreviewBlock>
             <SingleCard>
                 <SingleCardValueName>Облачность: </SingleCardValueName>
-                <SingleCardValue>{values.cloud} </SingleCardValue>
+                <SingleCardValue>{values.cloud}% </SingleCardValue>
             </SingleCard>
 
             <SingleCard>

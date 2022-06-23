@@ -26,7 +26,7 @@ export const WeatherPreviewCityName = styled.h2`
     &{
         align-self: center;
         user-select: none;
-        font-size: ${fluidTypography(320, 1920, 18, 36)}
+        font-size: ${fluidTypography(1920, 320, 24, 34)}
     }
 `
 

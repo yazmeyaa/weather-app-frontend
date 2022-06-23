@@ -6,12 +6,12 @@ import { useLocation } from 'hooks/useLocation'
 
 
 export const WeatherContent = () => {
-    const { 
+    const {
         cityName,
         weatherValues,
         updateWeatherValuesByCity,
         updateWeatherValuesByCoords
-         } = useLocation()
+    } = useLocation()
 
     useLayoutEffect(() => {
         updateWeatherValuesByCoords(true)
@@ -27,9 +27,7 @@ export const WeatherContent = () => {
                 <WeatherPreviewCityName>
                     {cityName}
                 </WeatherPreviewCityName>
-
-                {weatherValues && <WeatherPreview values={weatherValues} />}
-
+                    {weatherValues && <WeatherPreview values={weatherValues} />}
             </WeatherPreviewBlock>
         </PageContentBlock>
     )
