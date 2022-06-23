@@ -18,6 +18,6 @@ export const HeaderTitle = styled.h1`
         user-select: none;
         font-weight: 600;
         text-transform: uppercase;
-        font-size: ${fluidTypography(1920, 320, 48, 16)};
+        font-size: ${fluidTypography(1920, 320, 24, 36)};
     }
 `
