@@ -1,79 +1,36 @@
-import { useLayoutEffect, useState } from 'react'
-import axios, { AxiosResponse } from 'axios'
-import { appConfig } from '@config/appConfig'
+import { useLayoutEffect } from 'react'
 import { SearchBlock } from './searchInput'
 import { PageContentBlock, WeatherPreviewCityName, WeatherPreviewBlock } from './styled'
-import { IWeatherResponse } from 'types/weatherResponse'
-import { IWeatherValues } from 'types/weatherResponse'
 import { WeatherPreview } from './weatherPreview'
+import { useLocation } from 'hooks/useLocation'
 
 
 export const WeatherContent = () => {
-    const [weatherValues, setWeatherValues] = useState<IWeatherValues>()
-    const [cityName, setCityName] = useState<string | null>(null)
+    const { 
+        cityName,
+        weatherValues,
+        updateWeatherValuesByCity,
+        updateWeatherValuesByCoords
+         } = useLocation()
 
     useLayoutEffect(() => {
-        updateWeatherByGeoposition()
+        updateWeatherValuesByCoords()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    async function updateWeatherByGeoposition() {
-        navigator.geolocation.getCurrentPosition( async (result) => {
-            const valuesFromBackend: AxiosResponse<IWeatherResponse, null> = await axios({
-                method: 'GET',
-                url: `${appConfig.backendUrl}/api/get_weather`,
-                params: {
-                    city: `${result.coords.latitude},${result.coords.longitude}`
-                }
-            })
-
-            if (valuesFromBackend.status === 200) {
-                const values = valuesFromBackend.data.current
-                setCityName(valuesFromBackend.data.location.name)
-                setWeatherValues(values)
-
-            } else if (valuesFromBackend.status > 400) {
-                console.error('Неправильное имя города')
-            }
-
-        }, _ => {
-            updateWeatherValues('London')
-        } )
-    }
-
-    async function updateWeatherValues(cityNameToSearch: string) {
-                const valuesFromBackend: AxiosResponse<IWeatherResponse, null> = await axios({
-                    method: 'GET',
-                    url: `${appConfig.backendUrl}/api/get_weather`,
-                    params: {
-                        city: cityNameToSearch
-                    }
-                })
-
-                if (valuesFromBackend.status === 200) {
-                    const values = valuesFromBackend.data.current
-                    setCityName(valuesFromBackend.data.location.name)
-                    setWeatherValues(values)
-
-                } else if (valuesFromBackend.status > 400) {
-                    console.error('Неправильное имя города')
-                }
-
-            }
-
     return (
-            <PageContentBlock>
-                <WeatherPreviewBlock>
+        <PageContentBlock>
+            <WeatherPreviewBlock>
 
-                    <SearchBlock cityName={cityName ?? 'London'} setCityName={updateWeatherValues} />
+                <SearchBlock cityName={cityName ?? 'London'} setCityName={updateWeatherValuesByCity} />
 
-                    <WeatherPreviewCityName>
-                        {cityName}
-                    </WeatherPreviewCityName>
+                <WeatherPreviewCityName>
+                    {cityName}
+                </WeatherPreviewCityName>
 
-                    {weatherValues && <WeatherPreview values={weatherValues} />}
+                {weatherValues && <WeatherPreview values={weatherValues} />}
 
-                </WeatherPreviewBlock>
-            </PageContentBlock>
-        )
-    }
+            </WeatherPreviewBlock>
+        </PageContentBlock>
+    )
+}
