@@ -1,17 +1,14 @@
 import { useLayoutEffect } from 'react'
 import { SearchBlock } from './searchInput'
-import { PageContentBlock, WeatherPreviewCityName, WeatherPreviewBlock } from './styled'
+import { CurrentWeatherBlock, CurrentWeatherBlockLogo, PageContentBlock } from './styled'
 import { WeatherPreview } from './weatherPreview'
 import { useLocation } from 'hooks/useLocation'
 
 
 export const WeatherContent = () => {
     const {
-        cityName,
-        isLoading,
-        weatherValues,
-        updateWeatherValuesByCity,
-        updateWeatherValuesByCoords
+        updateWeatherValuesByCoords,
+        weatherValues
     } = useLocation()
 
     useLayoutEffect(() => {
@@ -21,15 +18,12 @@ export const WeatherContent = () => {
 
     return (
         <PageContentBlock>
-            <WeatherPreviewBlock>
-
-                <SearchBlock isLoading={isLoading} cityName={cityName ?? 'Определение вашего города...'} setCityName={updateWeatherValuesByCity} />
-
-                <WeatherPreviewCityName>
-                    {cityName}
-                </WeatherPreviewCityName>
+            <CurrentWeatherBlock>
                 {weatherValues && <WeatherPreview values={weatherValues} />}
-            </WeatherPreviewBlock>
+            </CurrentWeatherBlock>
+            <CurrentWeatherBlockLogo>
+                {weatherValues && <img src={weatherValues.condition.icon} alt='logo' />}
+            </CurrentWeatherBlockLogo>
         </PageContentBlock>
     )
 }

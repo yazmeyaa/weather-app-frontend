@@ -4,13 +4,23 @@ import { fluidTypography } from "components/fluidTypography"
 export const PageContentBlock = styled.section`
     &{
         display: flex;
-        align-self: center;
-        margin-top: .5rem;
-        width: 70%;
-        justify-content: center;
-        border: 1px solid #cecece;
-        background-color: #fff;
-        padding: 1rem 2rem;
+        align-items: center;
+        justify-content: space-around;
+        background-color: #325761;
+        width: fit-content;
+        padding: 3rem 2rem;
+    }
+`
+
+export const CurrentWeatherBlock = styled.div`
+    &{
+
+    }
+`
+
+export const CurrentWeatherBlockLogo = styled.div`
+    &{
+
     }
 `
 

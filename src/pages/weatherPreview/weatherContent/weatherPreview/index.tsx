@@ -1,37 +1,53 @@
 import { IWeatherValues } from 'types/weatherResponse'
-import { PreviewBlock, SingleCard, SingleCardValueName, SingleCardValue } from './styled'
-import { FC } from 'react'
+import { PreviewBlock, DateBlock, SingleCard, SingleCardValueName, SingleCardValue } from './styled'
+import { FC, useState } from 'react'
+
+
+function getWeekDay(date: number) {
+    switch (date) {
+        case 1: {
+            return 'Monday'
+        }
+        case 2: {
+            return 'Tuesday'
+        }
+        case 3: {
+            return 'Wednesday'
+        }
+        case 4: {
+            return 'Thursday'
+        }
+        case 5: {
+            return 'Friday'
+        }
+        case 6: {
+            return 'Saturday'
+        }
+        case 7: {
+            return 'Sunday'
+        }
+        default: {
+            return 'Wrong date!'
+        }
+    } 
+}
 
 interface IWeatherPreview {
     values: IWeatherValues
 }
 
 export const WeatherPreview: FC<IWeatherPreview> = ({ values }) => {
+    const [currentDate, _] = useState(new Date())
     return (
         <PreviewBlock>
-            <SingleCard>
-                <SingleCardValueName>Облачность: </SingleCardValueName>
-                <SingleCardValue>{values.cloud}% </SingleCardValue>
-            </SingleCard>
-
-            <SingleCard>
-                <SingleCardValueName>Температура: </SingleCardValueName>
-                <SingleCardValue>{values.temp_c} </SingleCardValue>
-            </SingleCard>
-
-            <SingleCard>
-                <SingleCardValueName>Ощущается как: </SingleCardValueName>
-                <SingleCardValue>{values.feelslike_c}</SingleCardValue>
-            </SingleCard>
-
-            <SingleCard>
-                <SingleCardValueName>Влажность: </SingleCardValueName>
-                <SingleCardValue>{values.humidity}% </SingleCardValue>  
-            </SingleCard>
-
-            <SingleCard>
-                <SingleCardValueName>{values.is_day ? 'День' : 'Ночь'} </SingleCardValueName>
-            </SingleCard>
+            <DateBlock>
+                <span>
+                    {getWeekDay(currentDate.getDay())},
+                </span>
+                <span>
+                    {currentDate.getDate()}
+                </span>
+            </DateBlock>
         </PreviewBlock>
     )
 }

@@ -17,6 +17,14 @@ export const SingleCard = styled.div`
     }
 `
 
+export const DateBlock = styled.div`
+    &{
+        display: flex;
+        font-size: ${fluidTypography(1920, 320, 24, 28)};
+        color: white;
+    }
+`
+
 export const SingleCardValueName = styled.h3`
     &{
         font-size: ${fluidTypography(1920, 320, 18, 30)};
