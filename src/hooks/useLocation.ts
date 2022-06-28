@@ -11,9 +11,11 @@ export enum requestPathes {
 export const useLocation = () => {
     const [weatherValues, setWeatherValues] = useState<IWeatherValues>()
     const [cityName, setCityName] = useState<string | null>(null)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
 
     async function updateWeatherValuesByCity(cityNameToSearch: string) {
+        setIsLoading(true)
         const valuesFromBackend: AxiosResponse<IWeatherResponse, null> = await axios({
             method: 'GET',
             url: `${appConfig.backendUrl}${requestPathes.getWeatherByCity}`,
@@ -21,6 +23,7 @@ export const useLocation = () => {
                 city: cityNameToSearch
             }
         })
+        setIsLoading(false)
 
         if (valuesFromBackend.status === 200) {
             setCityName(valuesFromBackend.data.location.name)
@@ -32,10 +35,12 @@ export const useLocation = () => {
     }
 
     async function updateWeatherValuesByIP() {
+        setIsLoading(true)
         const valuesFromBackend: AxiosResponse<IWeatherResponse, null> = await axios({
             method: 'GET',
             url: `${appConfig.backendUrl}${requestPathes.getWeatherByIP}`
         })
+        setIsLoading(false)
 
         if (valuesFromBackend.status === 200) {
             setCityName(valuesFromBackend.data.location.name)
@@ -47,6 +52,7 @@ export const useLocation = () => {
     }
 
     async function updateWeatherValuesByCoords(highAccuracy: boolean) {
+        setIsLoading(true)
         navigator.geolocation.getCurrentPosition(async (result) => {
             const valuesFromBackend: AxiosResponse<IWeatherResponse, null> = await axios({
                 method: 'GET',
@@ -55,6 +61,7 @@ export const useLocation = () => {
                     city: `${result.coords.latitude},${result.coords.longitude}`
                 }
             })
+            setIsLoading(false)
 
             if (valuesFromBackend.status === 200) {
                 const values = valuesFromBackend.data.current
@@ -72,5 +79,5 @@ export const useLocation = () => {
         })
     }
 
-    return { weatherValues, cityName, updateWeatherValuesByCity, updateWeatherValuesByIP, updateWeatherValuesByCoords, requestPathes }
+    return { weatherValues, cityName, isLoading, updateWeatherValuesByCity, updateWeatherValuesByIP, updateWeatherValuesByCoords, requestPathes }
 }

@@ -4,10 +4,11 @@ import { SearchBlockBody, SearchInputLabel, SearchInput, SearchForm, SearchButto
 
 interface ISearchBlockProps {
     cityName: string
+    isLoading: boolean
     setCityName: (cityNameToSearch: string, APImethod: requestPathes.getWeatherByCity) => Promise<void>
 }
 
-export const SearchBlock: FC<ISearchBlockProps> = ({ setCityName, cityName }) => {
+export const SearchBlock: FC<ISearchBlockProps> = ({ setCityName, cityName, isLoading }) => {
     const [inputValue, setInputValue] = useState<string>('')
     const [isInputFocused, setInputFocused] = useState<boolean>(false)
 
@@ -24,8 +25,8 @@ export const SearchBlock: FC<ISearchBlockProps> = ({ setCityName, cityName }) =>
         setInputValue(event.target.value)
     }
 
-    function handleChangeInputFocus(){
-        setInputFocused( prevState => {
+    function handleChangeInputFocus() {
+        setInputFocused(prevState => {
             return !prevState
         })
     }
@@ -46,7 +47,7 @@ export const SearchBlock: FC<ISearchBlockProps> = ({ setCityName, cityName }) =>
                         autoComplete='off'
                     />
                 </SearchInputLabel>
-                <SearchButton type='submit' >искать</SearchButton>
+                <SearchButton type='submit' disabled={isLoading} >искать</SearchButton>
             </SearchBlockBody>
         </SearchForm>
     )

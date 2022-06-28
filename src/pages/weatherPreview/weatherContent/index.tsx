@@ -8,6 +8,7 @@ import { useLocation } from 'hooks/useLocation'
 export const WeatherContent = () => {
     const {
         cityName,
+        isLoading,
         weatherValues,
         updateWeatherValuesByCity,
         updateWeatherValuesByCoords
@@ -22,12 +23,12 @@ export const WeatherContent = () => {
         <PageContentBlock>
             <WeatherPreviewBlock>
 
-                <SearchBlock cityName={cityName ?? 'Определение вашего города...'} setCityName={updateWeatherValuesByCity} />
+                <SearchBlock isLoading={isLoading} cityName={cityName ?? 'Определение вашего города...'} setCityName={updateWeatherValuesByCity} />
 
                 <WeatherPreviewCityName>
                     {cityName}
                 </WeatherPreviewCityName>
-                    {weatherValues && <WeatherPreview values={weatherValues} />}
+                {weatherValues && <WeatherPreview values={weatherValues} />}
             </WeatherPreviewBlock>
         </PageContentBlock>
     )
