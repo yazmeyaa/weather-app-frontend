@@ -5,6 +5,8 @@ export const PageContentBlock = styled.section`
     &{
         display: flex;
         align-items: center;
+        box-sizing: border-box;
+        max-width: 100%;
         justify-content: space-around;
         background-color: #325761;
         width: fit-content;
@@ -18,9 +20,10 @@ export const CurrentWeatherBlock = styled.div`
     }
 `
 
-export const CurrentWeatherBlockLogo = styled.div`
-    &{
-
+export const CurrentWeatherBlockLogo = styled.img`
+    &{ 
+        width: auto;
+        margin: 1rem 2rem;
     }
 `
 
@@ -36,7 +39,7 @@ export const WeatherPreviewCityName = styled.h2`
     &{
         align-self: center;
         user-select: none;
-        font-size: ${fluidTypography(1920, 320, 24, 34)}
+        font-size: ${fluidTypography(1920, 320, 34, 24)}
     }
 `
 

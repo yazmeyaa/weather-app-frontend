@@ -21,9 +21,7 @@ export const WeatherContent = () => {
             <CurrentWeatherBlock>
                 {weatherValues && <WeatherPreview values={weatherValues} />}
             </CurrentWeatherBlock>
-            <CurrentWeatherBlockLogo>
-                {weatherValues && <img src={weatherValues.condition.icon} alt='logo' />}
-            </CurrentWeatherBlockLogo>
+                {weatherValues && <CurrentWeatherBlockLogo src={weatherValues.condition.icon} alt='logo' />}
         </PageContentBlock>
     )
 }

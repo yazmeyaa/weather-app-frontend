@@ -1,5 +1,5 @@
 import { IWeatherValues } from 'types/weatherResponse'
-import { PreviewBlock, DateBlock, SingleCard, SingleCardValueName, SingleCardValue } from './styled'
+import { PreviewBlock, DateBlock, WeatherValue } from './styled'
 import { FC, useState } from 'react'
 
 
@@ -48,6 +48,18 @@ export const WeatherPreview: FC<IWeatherPreview> = ({ values }) => {
                     {currentDate.getDate()}
                 </span>
             </DateBlock>
+            <WeatherValue>
+                {values.temp_c}°C / {values.temp_f}F
+            </WeatherValue>
+            <WeatherValue>
+                {currentDate.getHours()}:{currentDate.getMinutes()}
+            </WeatherValue>
+            <WeatherValue>
+                Real Feel {values.feelslike_c}°C / {values.temp_f}F
+            </WeatherValue>
+            <WeatherValue>
+                Humidity {values.humidity}%
+            </WeatherValue>
         </PreviewBlock>
     )
 }
