@@ -1,7 +1,8 @@
 import { appConfig } from "@config/appConfig"
 import axios, { AxiosResponse } from "axios"
 import { useState } from "react"
-import { IWeatherResponse, IWeatherValues } from "types/weatherResponse"
+import { IForecastResponse } from 'types/forecastResponse'
+import { IWeatherResponse, WeatherValuesType } from "types/weatherResponse"
 
 export enum requestPathes {
     getWeatherByCity = '/api/get_weather',
@@ -9,7 +10,8 @@ export enum requestPathes {
 }
 
 export const useLocation = () => {
-    const [weatherValues, setWeatherValues] = useState<IWeatherValues>()
+    const [weatherValues, setWeatherValues] = useState<WeatherValuesType>()
+    const [weatherForecast, setWeatherForecast] = useState<IForecastResponse>()
     const [cityName, setCityName] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -79,5 +81,26 @@ export const useLocation = () => {
         })
     }
 
-    return { weatherValues, cityName, isLoading, updateWeatherValuesByCity, updateWeatherValuesByIP, updateWeatherValuesByCoords, requestPathes }
+    async function getForecast(cityNameToSearch: string, days: number) {
+        setIsLoading(true)
+
+        await axios({
+            url: `${appConfig.backendUrl}/api/get_forecast`,
+            method: 'GET',
+            params: {
+                city: cityNameToSearch,
+                days: days
+            }
+
+        })
+        .then( (data: AxiosResponse<IForecastResponse>) => {
+            setWeatherForecast(data.data)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+        setIsLoading(false)
+    }
+
+    return { weatherValues, weatherForecast, cityName, isLoading, getForecast, updateWeatherValuesByCity, updateWeatherValuesByIP, updateWeatherValuesByCoords, requestPathes }
 }

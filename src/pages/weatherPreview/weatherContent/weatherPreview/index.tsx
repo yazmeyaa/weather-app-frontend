@@ -1,4 +1,4 @@
-import { IWeatherValues } from 'types/weatherResponse'
+import { WeatherValuesType } from 'types/weatherResponse'
 import { PreviewBlock, DateBlock, WeatherValue } from './styled'
 import { FC, useState } from 'react'
 
@@ -33,7 +33,7 @@ function getWeekDay(date: number) {
 }
 
 interface IWeatherPreview {
-    values: IWeatherValues
+    values: WeatherValuesType
 }
 
 export const WeatherPreview: FC<IWeatherPreview> = ({ values }) => {
