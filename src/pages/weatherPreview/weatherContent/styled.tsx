@@ -23,7 +23,6 @@ export const CurrentWeatherBlock = styled.div`
 export const CurrentWeatherBlockLogo = styled.img`
     &{ 
         width: auto;
-        margin: 1rem 2rem;
     }
 `
 

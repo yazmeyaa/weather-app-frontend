@@ -8,7 +8,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <BrowserRouter>
+  <BrowserRouter basename='/temp/yazmeyaa/weatherapp'>
     <FontsImport />
     <ResetStyles />
     <Router />

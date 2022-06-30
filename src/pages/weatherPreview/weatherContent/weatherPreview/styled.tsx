@@ -15,7 +15,7 @@ export const WeatherValue = styled.div`
         display: flex;
         flex-direction: row;
         font-family: 'Coda';
-        font-size: ${fluidTypography(1920, 320, 14, 20)};
+        font-size: ${fluidTypography(1920, 320, 18, 22)};
     }
 `
 

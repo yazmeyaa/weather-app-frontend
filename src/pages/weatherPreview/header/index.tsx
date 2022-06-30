@@ -4,7 +4,7 @@ export const Header = () => {
     return (
         <HeaderContainer>
             <HeaderTitle>
-                weather app
+                Weather app
             </HeaderTitle>
         </HeaderContainer>
     )

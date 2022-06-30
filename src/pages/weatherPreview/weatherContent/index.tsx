@@ -1,7 +1,8 @@
-import { useLayoutEffect } from 'react'
+import { useEffect, useLayoutEffect } from 'react'
 import { CurrentWeatherBlock, CurrentWeatherBlockLogo, PageContentBlock } from './styled'
 import { WeatherPreview } from './weatherPreview'
-import { useLocation } from 'hooks/useLocation'
+import { ForecastBlock } from './forecastBlock/index'
+import { useWeather } from 'hooks/useLocation'
 
 
 export const WeatherContent = () => {
@@ -9,25 +10,30 @@ export const WeatherContent = () => {
         updateWeatherValuesByCoords,
         weatherValues,
         weatherForecast,
-        getForecast
-    } = useLocation()
+        getForecast,
+        cityName
+    } = useWeather()
 
     useLayoutEffect(() => {
         updateWeatherValuesByCoords(true)
-        getForecast('Moscow', 6)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    useLayoutEffect(()=>{
-        console.log(weatherForecast?.forecast.forecastday)
-    },[weatherForecast])
+    useEffect(() => {
+        if (cityName) {
+            getForecast(cityName, 6)
+        }
+    }, [cityName])
 
     return (
-        <PageContentBlock>
-            <CurrentWeatherBlock>
-                {weatherValues && <WeatherPreview values={weatherValues} />}
-            </CurrentWeatherBlock>
-            {weatherValues && <CurrentWeatherBlockLogo src={weatherValues.condition.icon} alt='logo' />}
-        </PageContentBlock>
+        <div>
+            <PageContentBlock>
+                <CurrentWeatherBlock>
+                    {weatherValues && <WeatherPreview values={weatherValues} />}
+                </CurrentWeatherBlock>
+                {weatherValues && <CurrentWeatherBlockLogo src={weatherValues.condition.icon} alt='logo' />}
+            </PageContentBlock>
+            {weatherForecast && <ForecastBlock forecastValues={weatherForecast} />}
+        </div>
     )
 }
