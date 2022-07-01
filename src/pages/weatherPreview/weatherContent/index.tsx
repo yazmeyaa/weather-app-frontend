@@ -23,6 +23,7 @@ export const WeatherContent = () => {
         if (cityName) {
             getForecast(cityName, 6)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cityName])
 
     return (
@@ -31,7 +32,7 @@ export const WeatherContent = () => {
                 <CurrentWeatherBlock>
                     {weatherValues && <WeatherPreview values={weatherValues} />}
                 </CurrentWeatherBlock>
-                {weatherValues && <CurrentWeatherBlockLogo src={weatherValues.condition.icon} alt='logo' />}
+                {weatherValues && <CurrentWeatherBlockLogo src={weatherValues.condition.icon} alt='icon' />}
             </PageContentBlock>
             {weatherForecast && <ForecastBlock forecastValues={weatherForecast} />}
         </div>
