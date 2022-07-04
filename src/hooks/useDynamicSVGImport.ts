@@ -1,23 +1,41 @@
-import { useRef } from "react";
-import { iconsCondition } from "components/conditionIcons";
+import { useEffect, useRef, useState } from "react";
 
-export function useDynamicSVGImport(codeToSearch: number) {
-    const ImportedIconRef = useRef();
-    const isSVGAvailable = iconsCondition.find((item) => item.code === codeToSearch)
+interface UseDynamicSVGImportOptions {
+    onCompleted?: (
+        name: string,
+        SvgIcon: React.FC<React.SVGProps<SVGSVGElement>> | undefined
+    ) => void;
+    onError?: (err: Error) => void;
+}
 
+export function useDynamicSVGImport(
+    name: string,
+    options: UseDynamicSVGImportOptions = {}
+) {
+    const ImportedIconRef = useRef<React.FC<React.SVGProps<SVGSVGElement>>>();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<Error>();
 
-    const importIcon = async () => {
-        try {
-            if(!isSVGAvailable){
-                return null
+    const { onCompleted, onError } = options;
+    useEffect(() => {
+        setLoading(true);
+        const importIcon = async (): Promise<void> => {
+            try {
+                ImportedIconRef.current = (
+                    await import(`assets/weather-icons/Sun.svg`)
+                ).ReactComponent;
+                onCompleted?.(name, ImportedIconRef.current);
+            } catch (err) {
+                if (err instanceof Error) {
+                    onError?.(err);
+                    setError(err);
+                }
+            } finally {
+                setLoading(false);
             }
-            ImportedIconRef.current = (
-                await import(`../assets/weather-icons/${isSVGAvailable.localFileName}`)
-            )
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
+        };
+        importIcon();
+    }, [name, onCompleted, onError]);
 
+    return { error, loading, SvgIcon: ImportedIconRef.current };
 }
