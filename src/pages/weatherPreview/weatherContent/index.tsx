@@ -45,8 +45,8 @@ export const WeatherContent = () => {
                 <CurrentWeatherBlock>
                     {weatherValues && <WeatherPreview values={weatherValues} />}
                 </CurrentWeatherBlock>
+                {SVGName && <Icon name={SVGName} />}
             </PageContentBlock>
-            {SVGName && <Icon name={SVGName} />}
             {weatherForecast && <ForecastBlock forecastValues={weatherForecast} />}
         </div>
     )
