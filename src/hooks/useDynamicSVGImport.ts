@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 interface UseDynamicSVGImportOptions {
     onCompleted?: (
         name: string,
-        SvgIcon: React.FC<React.SVGProps<SVGSVGElement>> | undefined
+        SvgIcon: string | undefined
     ) => void;
     onError?: (err: Error) => void;
 }
@@ -12,7 +12,7 @@ export function useDynamicSVGImport(
     name: string,
     options: UseDynamicSVGImportOptions = {}
 ) {
-    const ImportedIconRef = useRef<React.FC<React.SVGProps<SVGSVGElement>>>();
+    const ImportedIconRef = useRef<string>();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<Error>();
 
@@ -22,8 +22,8 @@ export function useDynamicSVGImport(
         const importIcon = async (): Promise<void> => {
             try {
                 ImportedIconRef.current = (
-                    await import(`assets/weather-icons/Sun.svg`)
-                ).ReactComponent;
+                    await import(`assets/weather-icons/${name}${name.split('.')[1] ? '' : '.svg'}`)
+                ).default;
                 onCompleted?.(name, ImportedIconRef.current);
             } catch (err) {
                 if (err instanceof Error) {

@@ -1,5 +1,3 @@
-import { FunctionComponent, SVGProps } from "react"
-
 type IconsType = {
     condition: string,
     code: number,
@@ -249,7 +247,8 @@ export const iconsCondition: Array<IconsType> = [
     },
 ]
 
+export function getSVGByCode(code: number){
+    const fileNameResult = iconsCondition.find( item => item.code === code )
 
-export type ReactSVGComponent = React.FunctionComponent<React.SVGProps<SVGSVGElement> & {
-    title?: string | undefined;
-}>
+    return fileNameResult ? fileNameResult.localFileName : null
+}

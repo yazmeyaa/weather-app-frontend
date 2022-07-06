@@ -1,9 +1,10 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { CurrentWeatherBlock, CurrentWeatherBlockLogo, PageContentBlock } from './styled'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
+import { CurrentWeatherBlock, PageContentBlock } from './styled'
 import { WeatherPreview } from './weatherPreview'
 import { ForecastBlock } from './forecastBlock/index'
 import { useWeather } from 'hooks/useLocation'
-import { useDynamicSVGImport } from 'hooks/useDynamicSVGImport'
+import { Icon } from './icon'
+import { getSVGByCode } from 'components/conditionIcons'
 
 
 export const WeatherContent = () => {
@@ -15,7 +16,16 @@ export const WeatherContent = () => {
         cityName
     } = useWeather()
 
-    const {SvgIcon: Sun} = useDynamicSVGImport('Sun.svg')
+    const [SVGName, setSVGName] = useState<string | null>(null)
+
+    useLayoutEffect(() => {
+        if (weatherValues) {
+            const fileName = getSVGByCode(weatherValues.condition.code)
+            if(fileName){
+                setSVGName(fileName)
+            }
+        }
+    }, [weatherValues])
 
     useLayoutEffect(() => {
         updateWeatherValuesByCoords(true)
@@ -35,8 +45,8 @@ export const WeatherContent = () => {
                 <CurrentWeatherBlock>
                     {weatherValues && <WeatherPreview values={weatherValues} />}
                 </CurrentWeatherBlock>
-                {Sun && <Sun />}
             </PageContentBlock>
+            {SVGName && <Icon name={SVGName} />}
             {weatherForecast && <ForecastBlock forecastValues={weatherForecast} />}
         </div>
     )
