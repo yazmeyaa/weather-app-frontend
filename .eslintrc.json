@@ -41,17 +41,14 @@
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
         "no-duplicate-imports": 1,
-        "linebreak-style": [
-            "warn",
-            "unix"
-        ],
+        "linebreak-style": ["warn", "unix"],
         "react/react-in-jsx-scope": "off",
         "require-jsdoc": "off",
         "@typesctipt-eslint/ban-ts-comment": "off"
     },
     "settings": {
         "react": {
-          "version": "detect"  
+            "version": "detect"
         },
         "import/resolver": {
             "typescript": {},
