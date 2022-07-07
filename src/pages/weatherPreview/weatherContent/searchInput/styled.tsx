@@ -1,45 +1,45 @@
-import { fluidTypography } from 'components/fluidTypography'
-import styled from 'styled-components'
+import { fluidTypography } from "components/fluidTypography";
+import styled from "styled-components";
 
 export const SearchForm = styled.form`
-    &{
-        border: 1px solid #dddddd;
-        padding: .5rem 1rem;
-    }
-`
+  & {
+    border: 1px solid #dddddd;
+    padding: 0.5rem 1rem;
+  }
+`;
 
 export const SearchBlockBody = styled.div`
-    &{
-        display: flex;
-        gap: .5rem; 
-        flex-direction: column;
-        align-items: center;
-    }
-`
+  & {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
+    align-items: center;
+  }
+`;
 
 export const SearchInputLabel = styled.label`
-    &{
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-    }
-`
+  & {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+`;
 
 export const SearchInput = styled.input`
-    &{
-        padding: 4px 6px;
-        transition: .5s;
-    }
-`
+  & {
+    padding: 4px 6px;
+    transition: 0.5s;
+  }
+`;
 
 export const SearchButton = styled.button`
-    &{
-        width: fit-content;
-        flex-basis: content;
-        flex: 0 0 content;
-        text-transform: uppercase;
-        user-select: none;
-        padding: 6px 12px;
-        font-size: ${fluidTypography(1920, 320, 16, 24)};
-    }
-`
+  & {
+    width: fit-content;
+    flex-basis: content;
+    flex: 0 0 content;
+    text-transform: uppercase;
+    user-select: none;
+    padding: 6px 12px;
+    font-size: ${fluidTypography(1920, 320, 16, 24)};
+  }
+`;

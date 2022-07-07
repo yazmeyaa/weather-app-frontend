@@ -1,6 +1,6 @@
-import { createGlobalStyle } from 'styled-components'
-import Armata from 'assets/fonts/Armata/Armata-Regular.ttf'
-import Coda from 'assets/fonts/Coda/Coda-Regular.ttf'
+import { createGlobalStyle } from "styled-components";
+import Armata from "assets/fonts/Armata/Armata-Regular.ttf";
+import Coda from "assets/fonts/Coda/Coda-Regular.ttf";
 
 export const FontsImport = createGlobalStyle`
     &{
@@ -24,4 +24,4 @@ export const FontsImport = createGlobalStyle`
 	    }
 
     }
-`
+`;
