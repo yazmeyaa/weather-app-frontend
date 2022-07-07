@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
-import Armata from '../fonts/Armata/Armata-Regular.ttf'
-import Coda from '../fonts/Coda/Coda-Regular.ttf'
+import Armata from 'assets/fonts/Armata/Armata-Regular.ttf'
+import Coda from 'assets/fonts/Coda/Coda-Regular.ttf'
 
 export const FontsImport = createGlobalStyle`
     &{

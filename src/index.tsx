@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/client';
-import { Router } from './Router/appRouter';
+import { Router } from './components/Router/appRouter';
 import { BrowserRouter } from 'react-router-dom';
 import { ResetStyles } from 'components/stylesReset'
 import { FontsImport } from 'components/importFonts'

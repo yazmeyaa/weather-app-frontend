@@ -35,7 +35,8 @@ export function useDynamicSVGImport(
             }
         };
         importIcon();
-    }, [name, onCompleted, onError]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [name]);
 
     return { error, loading, SvgIcon: ImportedIconRef.current };
 }
