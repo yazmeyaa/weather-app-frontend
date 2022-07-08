@@ -1,7 +1,7 @@
 import { IForecastResponse } from 'types/forecastResponse'
 import { FC, useLayoutEffect, useState } from 'react'
 import { getSVGByCode } from 'components/conditionIcons'
-import { Icon } from '../icon'
+import { Icon } from '../svgicon'
 
 type ForecastBlockType = {
     forecastValues: IForecastResponse

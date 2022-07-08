@@ -3,7 +3,7 @@ import { CurrentWeatherBlock, PageContentBlock } from './styled'
 import { WeatherPreview } from './weatherPreview'
 import { ForecastBlock } from './forecastBlock/index'
 import { useWeather } from 'hooks/useLocation'
-import { Icon } from './icon'
+import { Icon } from './svgicon'
 import { getSVGByCode } from 'components/conditionIcons'
 
 export const WeatherContent = () => {
