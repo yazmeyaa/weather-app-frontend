@@ -5,7 +5,7 @@ export const PageBasicLayout = styled.div`
         display: flex;
         min-height: 100vh;
         height: 100%;
-        width: 100vw;
+        width: 100%;
         flex-direction: column;
         align-items: center;
         background: rgb(154, 170, 181);

@@ -1,6 +1,6 @@
 import { WeatherValuesType } from 'types/weatherResponse'
 import { PreviewBlock, DateBlock, WeatherValue } from './styled'
-import { FC, useEffect, useRef } from 'react'
+import { FC, useRef } from 'react'
 
 function getWeekDay(date: number) {
     switch (date) {
@@ -37,11 +37,6 @@ interface IWeatherPreview {
 
 export const WeatherPreview: FC<IWeatherPreview> = ({ values }) => {
     const currentDate = useRef(new Date())
-
-    useEffect(() => {
-        console.log(currentDate.current)
-        console.log(currentDate.current.getDay())
-    }, [])
     return (
         <PreviewBlock>
             <DateBlock>

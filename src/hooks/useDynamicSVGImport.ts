@@ -9,9 +9,9 @@ export function useDynamicSVGImport(
     name: string,
     options: UseDynamicSVGImportOptions = {}
 ) {
-    const [ImportedIcon, setImportedIcon] = useState<string>()
+    const [ImportedIcon, setImportedIcon] = useState<string | null>(null)
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState<Error>()
+    const [error, setError] = useState<Error | null>(null)
     const { onCompleted, onError } = options
 
     const getIcon = useCallback(async (name: string) => {
