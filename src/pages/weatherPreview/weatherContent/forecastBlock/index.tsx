@@ -38,12 +38,12 @@ const ForecastItem: FC<ForecastItemType> = ({
     conditionCode,
     rainChance,
 }) => {
-    const [SVGImage, setSVGImage] = useState<string | null>(null)
+    const [SVGPathName, setSVGPathName] = useState<string | null>(null)
 
     useLayoutEffect(() => {
         const file = getSVGByCode(conditionCode)
         if (file) {
-            setSVGImage(file)
+            setSVGPathName(file)
         }
     }, [conditionCode])
 
@@ -54,7 +54,7 @@ const ForecastItem: FC<ForecastItemType> = ({
                 <span>Average temp C: {avgTempC}</span>
                 <span>Chance to rain: {rainChance}%</span>
             </div>
-            {SVGImage && <Icon name={SVGImage} />}
+            {SVGPathName && <Icon SVGPath={SVGPathName} />}
         </div>
     )
 }

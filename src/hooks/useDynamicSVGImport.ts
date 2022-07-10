@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 interface UseDynamicSVGImportOptions {
     onCompleted?: (name: string, SvgIcon: string | undefined) => void
@@ -9,36 +9,32 @@ export function useDynamicSVGImport(
     name: string,
     options: UseDynamicSVGImportOptions = {}
 ) {
-    const ImportedIconRef = useRef<string>()
+    const [ImportedIcon, setImportedIcon] = useState<string>()
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<Error>()
     const { onCompleted, onError } = options
 
-    useEffect(() => {
-        setLoading(true)
-
-        const importIcon = async () => {
-            try {
-                ImportedIconRef.current = (
-                    await import(
-                        `assets/weather-icons/${name}${
-                            name.split('.')[1] ? '' : '.svg'
-                        }`
-                    )
-                ).default
-                onCompleted?.(name, ImportedIconRef.current)
-            } catch (err) {
-                if (err instanceof Error) {
-                    onError?.(err)
-                    setError(err)
-                }
-            } finally {
-                setLoading(false)
+    const getIcon = useCallback(async (name: string) => {
+        setLoading(false)
+        try {
+            const importedIcon = await import(`assets/weather-icons/${name}`)
+            setImportedIcon(importedIcon.default)
+            onCompleted?.(name, importedIcon.default)
+        } catch (err) {
+            if (err instanceof Error) {
+                setError(err)
+                onError?.(err)
             }
+        } finally {
+            setLoading(false)
         }
-        importIcon()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [name])
+    }, [])
 
-    return { error, loading, SvgIcon: ImportedIconRef.current }
+    useEffect(() => {
+        getIcon(name)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    return { error, loading, SvgIcon: ImportedIcon }
 }

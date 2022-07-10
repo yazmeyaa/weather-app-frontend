@@ -3,15 +3,11 @@ import { FC } from 'react'
 import { ReactSVG } from 'react-svg'
 
 interface IIcon {
-    name: string
+    SVGPath: string
 }
 
-export const Icon: FC<IIcon> = ({ name }) => {
-    const { SvgIcon } = useDynamicSVGImport(name, {
-        onCompleted: (name, svg) => {
-            console.log(name, svg)
-        },
-    })
+export const Icon: FC<IIcon> = ({ SVGPath }) => {
+    const { SvgIcon } = useDynamicSVGImport(SVGPath)
 
     return <>{SvgIcon && <ReactSVG src={SvgIcon} />}</>
 }

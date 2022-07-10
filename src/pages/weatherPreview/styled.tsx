@@ -3,7 +3,8 @@ import styled from 'styled-components'
 export const PageBasicLayout = styled.div`
     & {
         display: flex;
-        height: 100vh;
+        min-height: 100vh;
+        height: 100%;
         width: 100vw;
         flex-direction: column;
         align-items: center;
