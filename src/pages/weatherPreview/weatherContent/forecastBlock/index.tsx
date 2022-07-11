@@ -2,6 +2,7 @@ import { IForecastResponse } from 'types/forecastResponse'
 import { FC, useLayoutEffect, useState } from 'react'
 import { getSVGByCode } from 'components/conditionIcons'
 import { Icon } from '../svgicon'
+import { Container, ItemContainer } from './styled'
 
 type ForecastBlockType = {
     forecastValues: IForecastResponse
@@ -9,7 +10,7 @@ type ForecastBlockType = {
 
 export const ForecastBlock: FC<ForecastBlockType> = ({ forecastValues }) => {
     return (
-        <>
+        <Container>
             {forecastValues.forecast.forecastday.map((item, index) => {
                 return (
                     <ForecastItem
@@ -21,7 +22,7 @@ export const ForecastBlock: FC<ForecastBlockType> = ({ forecastValues }) => {
                     />
                 )
             })}
-        </>
+        </Container>
     )
 }
 
@@ -48,13 +49,13 @@ const ForecastItem: FC<ForecastItemType> = ({
     }, [conditionCode])
 
     return (
-        <div>
+        <ItemContainer>
             <h2>{currentDate}</h2>
             <div>
                 <span>Average temp C: {avgTempC}</span>
                 <span>Chance to rain: {rainChance}%</span>
             </div>
             {SVGPathName && <Icon SVGPath={SVGPathName} />}
-        </div>
+        </ItemContainer>
     )
 }
