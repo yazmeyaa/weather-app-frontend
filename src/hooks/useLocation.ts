@@ -115,6 +115,7 @@ export const useWeather = () => {
         updateWeatherValuesByCity,
         updateWeatherValuesByIP,
         updateWeatherValuesByCoords,
+        setCityName,
         requestPathes,
     }
 }
