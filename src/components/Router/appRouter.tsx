@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { LandingPage } from 'pages/weatherPreview'
+import { LandingPage } from 'views/weather'
 
 export const Router = () => {
     return (
