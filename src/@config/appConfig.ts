@@ -1,10 +1,11 @@
 const {
-    REACT_APP_BACKEND_URL: backendUrl,
+    VITE_BACKEND_URL: backendUrl,
     NODE_ENV: nodeEnv,
-    REACT_APP_URL_SUBPATCH: URLSubPatch,
-} = process.env
+    VITE_URL_SUBPATCH: URLSubPatch,
+} = import.meta.env
 
 function getValueByName(value: string | undefined, defaultValue = '') {
+    console.log(import.meta.env)
     return value || defaultValue
 }
 
