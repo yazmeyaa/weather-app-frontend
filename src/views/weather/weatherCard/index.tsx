@@ -1,56 +1,26 @@
-import { Wrapper, ValuesItem } from './styled'
+import { Wrapper } from './styled'
 import { ForecastSignleDay } from 'types/forecastResponse'
-import { FC, Fragment, MouseEventHandler } from 'react'
-
+import { FC, MouseEventHandler } from 'react'
+import { CardFull } from './cardFull'
+import { CardCompact } from './cardCompact'
 interface IWeatherCardProps {
-    values: ForecastSignleDay
+    forecastValues: ForecastSignleDay
     selected: boolean
     onClick: MouseEventHandler<HTMLDivElement>
 }
 
 export const WeatherCard: FC<IWeatherCardProps> = ({
-    values,
+    forecastValues,
     selected,
     onClick,
 }) => {
     return (
         <Wrapper onClick={onClick} selected={selected}>
             {selected ? (
-                <MegaCard values={values} />
+                <CardFull forecastValues={forecastValues} />
             ) : (
-                <MiniCard values={values} />
+                <CardCompact values={forecastValues} />
             )}
         </Wrapper>
-    )
-}
-
-interface ICards {
-    values: ForecastSignleDay
-}
-
-const MiniCard: FC<ICards> = ({ values }) => {
-    return (
-        <Fragment>
-            <ValuesItem>Avarage temp: {values.day.avgtemp_c}</ValuesItem>
-            <ValuesItem>
-                Chance of rain: {values.day.daily_chance_of_rain}
-            </ValuesItem>
-        </Fragment>
-    )
-}
-
-const MegaCard: FC<ICards> = ({ values }) => {
-    return (
-        <Fragment>
-            <ValuesItem>Avarage temp: {values.day.avgtemp_c}</ValuesItem>
-            <ValuesItem>
-                Chance of rain: {values.day.daily_chance_of_rain}
-            </ValuesItem>
-            <ValuesItem>Humidity: {values.day.avghumidity}%</ValuesItem>
-            <ValuesItem>
-                Precipitation: {values.day.totalprecip_mm}mmHg
-            </ValuesItem>
-            <ValuesItem>UV index: {values.day.uv}</ValuesItem>
-        </Fragment>
     )
 }

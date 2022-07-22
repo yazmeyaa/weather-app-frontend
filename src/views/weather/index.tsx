@@ -1,5 +1,6 @@
+import { WeatherValuesStore } from 'context/weatherValuesStore'
 import { useWeather } from 'hooks/useWeather'
-import { useLayoutEffect, useState } from 'react'
+import { useContext, useLayoutEffect, useState } from 'react'
 import { WeatherWrapper } from './styled'
 import { WeatherCard } from './weatherCard'
 
@@ -12,9 +13,17 @@ export const LandingPage = () => {
         location,
         weatherForecast,
         updateWeatherValuesByCoords,
+        weatherValues,
     } = useWeather()
+    const { forecastValues, weatherValues: weather } =
+        useContext(WeatherValuesStore)
     useLayoutEffect(() => {
         updateWeatherValuesByCoords()
+        if (weatherForecast) {
+            forecastValues.setForecastValues(weatherForecast)
+        }
+        weather.setWeatherValues(weatherValues)
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     useLayoutEffect(() => {
@@ -37,7 +46,7 @@ export const LandingPage = () => {
                                 handleClickEvent(index)
                             }}
                             selected={currentCardSelected === index}
-                            values={item}
+                            forecastValues={item}
                             key={index}
                         />
                     )

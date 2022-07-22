@@ -3,6 +3,7 @@ import { fluidTypography } from 'components/fluidTypography'
 
 export const HeaderContainer = styled.header`
     & {
+        display: flex;
         box-sizing: border-box;
         width: 100%;
         padding: 1rem;
