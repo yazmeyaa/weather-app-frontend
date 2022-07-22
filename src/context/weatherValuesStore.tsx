@@ -1,16 +1,17 @@
-import { createContext, ReactNode, FC, useState, Dispatch } from 'react'
+import { useWeather } from 'hooks/useWeather'
+import { createContext, ReactNode, FC, useEffect, useLayoutEffect } from 'react'
 import { IForecastResponse } from 'types/forecastResponse'
-import { IWeatherResponse } from 'types/weatherResponse'
+import { LocationType, WeatherValuesType } from 'types/weatherResponse'
 
 interface WeatherValuesContextType {
-    weatherValues: {
-        values: IWeatherResponse | null
-        setWeatherValues: Dispatch<IWeatherResponse>
-    }
-    forecastValues: {
-        values: IForecastResponse | null
-        setForecastValues: Dispatch<IForecastResponse>
-    }
+    weatherForecast: IForecastResponse | null
+    weatherValues: WeatherValuesType | null
+    getForecast: (cityNameToSearch: string, days: number) => Promise<void>
+    isLoading: boolean
+    location: LocationType | null
+    updateWeatherValuesByCity: (cityNameToSearch: string) => Promise<void>
+    updateWeatherValuesByCoords: (options?: PositionOptions | undefined) => void
+    updateWeatherValuesByIP: () => Promise<void>
 }
 
 export const WeatherValuesStore = createContext<WeatherValuesContextType>(
@@ -22,21 +23,36 @@ interface IWeatherValuesProvider {
 }
 
 export const WeatherValues: FC<IWeatherValuesProvider> = ({ children }) => {
-    const [weatherValues, setWeatherValues] = useState<IWeatherResponse | null>(
-        null
-    )
-    const [currentForecast, setCurrentForecast] =
-        useState<IForecastResponse | null>(null)
+    const {
+        weatherForecast,
+        weatherValues,
+        getForecast,
+        isLoading,
+        location,
+        updateWeatherValuesByCity,
+        updateWeatherValuesByCoords,
+        updateWeatherValuesByIP,
+    } = useWeather()
+    useEffect(() => {
+        updateWeatherValuesByCoords()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
+    useLayoutEffect(() => {
+        if (location) {
+            getForecast(location.name, 3)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location])
     const store: WeatherValuesContextType = {
-        weatherValues: {
-            setWeatherValues: setWeatherValues,
-            values: weatherValues,
-        },
-        forecastValues: {
-            values: currentForecast,
-            setForecastValues: setCurrentForecast,
-        },
+        weatherForecast,
+        weatherValues,
+        getForecast,
+        isLoading,
+        location,
+        updateWeatherValuesByCity,
+        updateWeatherValuesByCoords,
+        updateWeatherValuesByIP,
     }
 
     return (

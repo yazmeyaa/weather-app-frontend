@@ -17,35 +17,31 @@ const weekDays = [
     'Saturday',
 ]
 
-export const CardFull: FC<ICards> = () => {
-    const currentDate = useRef<Date>(new Date())
-    const { forecastValues } = useContext(WeatherValuesStore)
+export const CardFull: FC<ICards> = ({ forecastValues }) => {
+    const currentDate = useRef<Date>(new Date(forecastValues.date))
+    const { weatherValues } = useContext(WeatherValuesStore)
     return (
         <Wrapper>
-            <CurrentDate>{weekDays[currentDate.current.getDay()]}</CurrentDate>
+            <CurrentDate>
+                {weekDays[currentDate.current.getDay()]}{' '}
+                {currentDate.current.getDate()}{' '}
+            </CurrentDate>
             <CurrentTemp>
-                Avarage temp:{' '}
-                {forecastValues.values && forecastValues.values.current.temp_c}
+                Current temp: {weatherValues && weatherValues.temp_c}
             </CurrentTemp>
             <ValuesItem>
                 Chance of rain:{' '}
-                {forecastValues.values &&
-                    forecastValues.values.day.daily_chance_of_rain}
+                {forecastValues && forecastValues.day.daily_chance_of_rain}
             </ValuesItem>
             <ValuesItem>
-                Humidity:{' '}
-                {forecastValues.values && forecastValues.values.day.avghumidity}
-                %
+                Humidity: {forecastValues && forecastValues.day.avghumidity}%
             </ValuesItem>
             <ValuesItem>
                 Precipitation:{' '}
-                {forecastValues.values &&
-                    forecastValues.values.day.totalprecip_mm}{' '}
-                mmHg
+                {forecastValues && forecastValues.day.totalprecip_mm} mmHg
             </ValuesItem>
             <ValuesItem>
-                UV index:{' '}
-                {forecastValues.values && forecastValues.values.day.uv}
+                UV index: {forecastValues && forecastValues.day.uv}
             </ValuesItem>
         </Wrapper>
     )

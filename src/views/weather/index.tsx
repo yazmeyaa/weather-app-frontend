@@ -1,6 +1,5 @@
 import { WeatherValuesStore } from 'context/weatherValuesStore'
-import { useWeather } from 'hooks/useWeather'
-import { useContext, useLayoutEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { WeatherWrapper } from './styled'
 import { WeatherCard } from './weatherCard'
 
@@ -8,30 +7,7 @@ export const LandingPage = () => {
     const [currentCardSelected, setCurrentCardSelected] = useState<
         number | null
     >(null)
-    const {
-        getForecast,
-        location,
-        weatherForecast,
-        updateWeatherValuesByCoords,
-        weatherValues,
-    } = useWeather()
-    const { forecastValues, weatherValues: weather } =
-        useContext(WeatherValuesStore)
-    useLayoutEffect(() => {
-        updateWeatherValuesByCoords()
-        if (weatherForecast) {
-            forecastValues.setForecastValues(weatherForecast)
-        }
-        weather.setWeatherValues(weatherValues)
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-    useLayoutEffect(() => {
-        if (location) {
-            getForecast(location.name, 3)
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [location])
+    const { weatherForecast } = useContext(WeatherValuesStore)
 
     function handleClickEvent(number: number) {
         setCurrentCardSelected(number)
