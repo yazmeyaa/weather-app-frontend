@@ -1,28 +1,15 @@
 import { useWeather } from 'hooks/useWeather'
-import { createContext, ReactNode, FC, useEffect, useLayoutEffect } from 'react'
-import { IForecastResponse } from 'types/forecastResponse'
-import { LocationType, WeatherValuesType } from 'types/weatherResponse'
-
-interface WeatherValuesContextType {
-    weatherForecast: IForecastResponse | null
-    weatherValues: WeatherValuesType | null
-    getForecast: (cityNameToSearch: string, days: number) => Promise<void>
-    isLoading: boolean
-    location: LocationType | null
-    updateWeatherValuesByCity: (cityNameToSearch: string) => Promise<void>
-    updateWeatherValuesByCoords: (options?: PositionOptions | undefined) => void
-    updateWeatherValuesByIP: () => Promise<void>
-}
+import { createContext, useEffect, useLayoutEffect } from 'react'
+import {
+    WeatherValuesProviderProps,
+    WeatherValuesContextType,
+} from './weatherValuesStore.types'
 
 export const WeatherValuesStore = createContext<WeatherValuesContextType>(
     {} as WeatherValuesContextType
 )
 
-interface IWeatherValuesProvider {
-    children: ReactNode
-}
-
-export const WeatherValues: FC<IWeatherValuesProvider> = ({ children }) => {
+export const WeatherValues: WeatherValuesProviderProps = ({ children }) => {
     const {
         weatherForecast,
         weatherValues,

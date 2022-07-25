@@ -1,13 +1,9 @@
 import { Footer } from 'components/footer'
 import { Header } from 'components/header'
-import { ReactNode, FC } from 'react'
 import { Wrapper } from './styled'
+import { baseLayoutType } from './baseLayout.types'
 
-interface IBaseLayout {
-    children: ReactNode
-}
-
-export const BaseLayout: FC<IBaseLayout> = ({ children }) => {
+export const BaseLayout: baseLayoutType = ({ children }) => {
     return (
         <Wrapper>
             <Header />

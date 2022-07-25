@@ -1,4 +1,4 @@
-import { WeatherValuesStore } from 'context/weatherValuesStore'
+import { WeatherValuesStore } from 'store/weatherValuesStore'
 import { useContext, useState } from 'react'
 import { WeatherWrapper } from './styled'
 import { WeatherCard } from './weatherCard'
