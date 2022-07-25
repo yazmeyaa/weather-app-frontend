@@ -1,4 +1,4 @@
-import { WeatherValuesStore } from 'context/weatherValuesStore'
+import { WeatherValuesStore } from 'store/weatherValuesStore'
 import { FC, useContext, useRef } from 'react'
 import { ForecastSignleDay } from 'types/forecastResponse'
 import { CurrentDate, CurrentTemp, ValuesItem, Wrapper } from './styled'
