@@ -2,6 +2,7 @@ import { WeatherValuesStore } from 'store/weatherValuesStore'
 import { useContext, useState } from 'react'
 import { WeatherWrapper } from './styled'
 import { WeatherCard } from './weatherCard'
+import { Loading } from 'components/loading/loading'
 
 export const LandingPage = () => {
     const [currentCardSelected, setCurrentCardSelected] = useState<
@@ -28,7 +29,7 @@ export const LandingPage = () => {
                     )
                 })
             ) : (
-                <h1>loading...</h1>
+                <Loading />
             )}
         </WeatherWrapper>
     )
