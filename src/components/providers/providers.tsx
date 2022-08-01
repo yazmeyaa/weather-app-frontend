@@ -1,6 +1,6 @@
 import { appConfig } from '@config/appConfig'
 import { BrowserRouter } from 'react-router-dom'
-import { WeatherValues } from 'store/weatherValuesStore'
+import { WeatherValues } from 'store/weatherValues/weatherValuesStore'
 import { CardsContextProvider } from 'views/weather/weatherCard/helpers/activeCardState'
 import { ProvidersType } from './providers.types'
 
