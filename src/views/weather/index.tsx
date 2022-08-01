@@ -1,18 +1,18 @@
 import { WeatherValuesStore } from 'store/weatherValuesStore'
-import { useContext, useState } from 'react'
+import { useContext, useLayoutEffect } from 'react'
 import { WeatherWrapper } from './styled'
 import { WeatherCard } from './weatherCard'
 import { Loading } from 'components/loading/loading'
+import { CardsContext } from './weatherCard/helpers/activeCardState'
 
 export const LandingPage = () => {
-    const [currentCardSelected, setCurrentCardSelected] = useState<
-        number | null
-    >(null)
     const { weatherForecast } = useContext(WeatherValuesStore)
+    const { currentCardSelected, setCurrentCard } = useContext(CardsContext)
 
-    function handleClickEvent(number: number) {
-        setCurrentCardSelected(number)
-    }
+    useLayoutEffect(() => {
+        console.log(currentCardSelected ?? null)
+    }, [currentCardSelected])
+
     return (
         <WeatherWrapper>
             {weatherForecast ? (
@@ -20,7 +20,7 @@ export const LandingPage = () => {
                     return (
                         <WeatherCard
                             onClick={() => {
-                                handleClickEvent(index)
+                                setCurrentCard(index)
                             }}
                             selected={currentCardSelected === index}
                             forecastValues={item}

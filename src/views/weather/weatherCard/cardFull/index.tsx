@@ -1,7 +1,14 @@
 import { WeatherValuesStore } from 'store/weatherValuesStore'
-import { FC, useContext, useRef } from 'react'
+import React, { FC, useContext, useRef } from 'react'
 import { ForecastSignleDay } from 'types/forecastResponse'
-import { CurrentDate, CurrentTemp, ValuesItem, Wrapper } from './styled'
+import {
+    CurrentDate,
+    CurrentTemp,
+    ValuesItem,
+    Wrapper,
+    CloseButton,
+} from './styled'
+import { CardsContext } from '../helpers/activeCardState'
 
 interface ICards {
     forecastValues: ForecastSignleDay
@@ -20,8 +27,16 @@ const weekDays = [
 export const CardFull: FC<ICards> = ({ forecastValues }) => {
     const currentDate = useRef<Date>(new Date(forecastValues.date))
     const { weatherValues } = useContext(WeatherValuesStore)
+    const { setCurrentCard } = useContext(CardsContext)
+
+    function handleCloseEvent(event: React.MouseEvent) {
+        event.preventDefault()
+        event.stopPropagation()
+        setCurrentCard(null)
+    }
     return (
         <Wrapper>
+            <CloseButton onClick={handleCloseEvent}>X</CloseButton>
             <CurrentDate>
                 {weekDays[currentDate.current.getDay()]}{' '}
                 {currentDate.current.getDate()}{' '}

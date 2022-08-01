@@ -9,8 +9,9 @@ import {
 } from 'types/weatherResponse'
 
 export const requestPathes = {
-    getWeatherByCity: '/api/get_weather',
-    getWeatherByIP: '/api/get_weather_by_ip',
+    getWeatherByCity: `${appConfig.backendUrl}/api/get_weather`,
+    getWeatherByIP: `${appConfig.backendUrl}/api/get_weather_by_ip`,
+    getForecast: `${appConfig.backendUrl}/api/get_forecast`,
 }
 
 export const useWeather = () => {
@@ -32,7 +33,7 @@ export const useWeather = () => {
             try {
                 await axios({
                     method: 'GET',
-                    url: `${appConfig.backendUrl}${requestPathes.getWeatherByCity}`,
+                    url: requestPathes.getWeatherByCity,
                     params: {
                         city: cityNameToSearch,
                     },
@@ -61,7 +62,7 @@ export const useWeather = () => {
         try {
             await axios({
                 method: 'GET',
-                url: `${appConfig.backendUrl}${requestPathes.getWeatherByIP}`,
+                url: requestPathes.getWeatherByIP,
             }).then((response: AxiosResponse<IWeatherResponse>) => {
                 setLocation(response.data.location)
                 setWeatherValues(response.data.current)
@@ -88,7 +89,7 @@ export const useWeather = () => {
                     async result => {
                         await axios({
                             method: 'GET',
-                            url: `${appConfig.backendUrl}/api/get_weather`,
+                            url: requestPathes.getWeatherByCity,
                             params: {
                                 city: `${result.coords.latitude},${result.coords.longitude}`,
                             },
@@ -123,7 +124,7 @@ export const useWeather = () => {
             setIsLoading(true)
 
             await axios({
-                url: `${appConfig.backendUrl}/api/get_forecast`,
+                url: requestPathes.getForecast,
                 method: 'GET',
                 params: {
                     city: cityNameToSearch,
