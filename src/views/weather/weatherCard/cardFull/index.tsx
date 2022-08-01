@@ -1,4 +1,3 @@
-import { WeatherValuesStore } from 'store/weatherValuesStore'
 import React, { FC, useContext, useRef } from 'react'
 import { ForecastSignleDay } from 'types/forecastResponse'
 import {
@@ -26,7 +25,6 @@ const weekDays = [
 
 export const CardFull: FC<ICards> = ({ forecastValues }) => {
     const currentDate = useRef<Date>(new Date(forecastValues.date))
-    const { weatherValues } = useContext(WeatherValuesStore)
     const { setCurrentCard } = useContext(CardsContext)
 
     function handleCloseEvent(event: React.MouseEvent) {
@@ -42,7 +40,7 @@ export const CardFull: FC<ICards> = ({ forecastValues }) => {
                 {currentDate.current.getDate()}{' '}
             </CurrentDate>
             <CurrentTemp>
-                Current temp: {weatherValues && weatherValues.temp_c}
+                Current temp: {forecastValues && forecastValues.day.avgtemp_c}
             </CurrentTemp>
             <ValuesItem>
                 Chance of rain:{' '}
@@ -53,7 +51,7 @@ export const CardFull: FC<ICards> = ({ forecastValues }) => {
             </ValuesItem>
             <ValuesItem>
                 Precipitation:{' '}
-                {forecastValues && forecastValues.day.totalprecip_mm} mmHg
+                {forecastValues && forecastValues.day.totalprecip_mm} mm
             </ValuesItem>
             <ValuesItem>
                 UV index: {forecastValues && forecastValues.day.uv}

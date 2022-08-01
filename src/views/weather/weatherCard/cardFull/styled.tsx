@@ -1,20 +1,20 @@
 import { fluidTypography } from 'components/fluidTypography'
 import styled from 'styled-components'
 
-export const ValuesItem = styled.span`
-    & {
-        font-size: inherit;
-    }
-`
-
 export const Wrapper = styled.div`
     & {
         display: flex;
         flex-direction: column;
         position: relative;
-        padding: 2rem 4rem;
+        padding: 6px;
         color: white;
         font-size: ${fluidTypography(320, 1920, 20, 26)};
+        cursor: default;
+    }
+`
+export const ValuesItem = styled.span`
+    & {
+        font-size: inherit;
     }
 `
 

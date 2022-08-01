@@ -19,6 +19,6 @@ export const HeaderTitle = styled.h1`
         user-select: none;
         font-weight: 600;
         font-variant: small-caps;
-        font-size: ${fluidTypography(1920, 320, 24, 36)};
+        font-size: ${fluidTypography(320, 1920, 24, 36)};
     }
 `
