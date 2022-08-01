@@ -6,7 +6,7 @@ import { Loading } from 'components/loading/loading'
 import { CardsContext } from './weatherCard/helpers/activeCardState'
 
 export const LandingPage = () => {
-    const { weatherForecast } = useContext(WeatherValuesStore)
+    const { weatherForecast, error } = useContext(WeatherValuesStore)
     const { currentCardSelected, setCurrentCard } = useContext(CardsContext)
     return (
         <WeatherWrapper>
@@ -28,6 +28,7 @@ export const LandingPage = () => {
                 ) : (
                     <Loading />
                 )}
+                {error && error.message}
             </CardsWrapper>
         </WeatherWrapper>
     )

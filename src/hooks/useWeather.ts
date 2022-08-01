@@ -1,5 +1,5 @@
 import { appConfig } from '@config/appConfig'
-import axios, { AxiosResponse } from 'axios'
+import axios, { AxiosResponse, AxiosError } from 'axios'
 import { useCallback, useEffect, useState } from 'react'
 import { IForecastResponse } from 'types/forecastResponse'
 import {
@@ -21,6 +21,7 @@ export const useWeather = () => {
         useState<IForecastResponse | null>(null)
     const [location, setLocation] = useState<LocationType | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [error, setError] = useState<null | undefined | AxiosError>(null)
 
     /*
      * Function allows to update weather values by city name.
@@ -30,24 +31,30 @@ export const useWeather = () => {
     const updateWeatherValuesByCity = useCallback(
         async function updateWeatherValuesByCity(cityNameToSearch: string) {
             setIsLoading(true)
-            try {
-                await axios({
-                    method: 'GET',
-                    url: requestPathes.getWeatherByCity,
-                    params: {
-                        city: cityNameToSearch,
-                    },
-                }).then((response: AxiosResponse<IWeatherResponse>) => {
+            await axios({
+                method: 'GET',
+                url: requestPathes.getWeatherByCity,
+                params: {
+                    city: cityNameToSearch,
+                },
+            })
+                .then((response: AxiosResponse<IWeatherResponse>) => {
                     setLocation(response.data.location)
                     setWeatherValues(response.data.current)
                     setIsLoading(false)
                 })
-            } catch (error) {
-                setIsLoading(false)
-                console.error(error)
-            } finally {
-                setIsLoading(false)
-            }
+                .catch((reasson: Error | AxiosError) => {
+                    if (axios.isAxiosError(reasson)) {
+                        setError(reasson)
+                        setIsLoading(false)
+                        console.error(reasson)
+                    } else if (reasson instanceof Error) {
+                        console.error(reasson.message)
+                    }
+                })
+                .finally(() => {
+                    setIsLoading(false)
+                })
             setIsLoading(false)
         },
         []
@@ -59,21 +66,28 @@ export const useWeather = () => {
      */
     const updateWeatherValuesByIP = useCallback(async () => {
         setIsLoading(true)
-        try {
-            await axios({
-                method: 'GET',
-                url: requestPathes.getWeatherByIP,
-            }).then((response: AxiosResponse<IWeatherResponse>) => {
+
+        await axios({
+            method: 'GET',
+            url: requestPathes.getWeatherByIP,
+        })
+            .then((response: AxiosResponse<IWeatherResponse>) => {
                 setLocation(response.data.location)
                 setWeatherValues(response.data.current)
                 setIsLoading(false)
             })
-        } catch (error) {
-            setIsLoading(false)
-            console.error(error)
-        } finally {
-            setIsLoading(false)
-        }
+            .catch((reasson: Error | AxiosError) => {
+                if (axios.isAxiosError(reasson)) {
+                    setError(reasson)
+                    setIsLoading(false)
+                    console.error(reasson)
+                } else if (reasson instanceof Error) {
+                    console.error(reasson.message)
+                }
+            })
+            .finally(() => {
+                setIsLoading(false)
+            })
     }, [])
 
     /*
@@ -83,31 +97,40 @@ export const useWeather = () => {
      */
     const updateWeatherValuesByCoords = useCallback(
         (options?: PositionOptions) => {
-            try {
-                setIsLoading(true)
-                navigator.geolocation.getCurrentPosition(
-                    async result => {
-                        await axios({
-                            method: 'GET',
-                            url: requestPathes.getWeatherByCity,
-                            params: {
-                                city: `${result.coords.latitude},${result.coords.longitude}`,
-                            },
-                        }).then((response: AxiosResponse<IWeatherResponse>) => {
+            setIsLoading(true)
+            navigator.geolocation.getCurrentPosition(
+                async result => {
+                    await axios({
+                        method: 'GET',
+                        url: requestPathes.getWeatherByCity,
+                        params: {
+                            city: `${result.coords.latitude},${result.coords.longitude}`,
+                        },
+                    })
+                        .then((response: AxiosResponse<IWeatherResponse>) => {
                             setIsLoading(false)
                             setWeatherValues(response.data.current)
                             setLocation(response.data.location)
                         })
-                    },
-                    updateWeatherValuesByIP,
-                    options
-                )
-            } catch (error) {
-                setIsLoading(false)
-                console.error(error)
-            } finally {
-                setIsLoading(false)
-            }
+                        .catch((reasson: Error | AxiosError) => {
+                            if (axios.isAxiosError(reasson)) {
+                                setError(reasson)
+                                setIsLoading(false)
+                                console.error(reasson)
+                            } else if (reasson instanceof Error) {
+                                console.error(reasson.message)
+                            }
+                        })
+                        .finally(() => {
+                            setIsLoading(false)
+                        })
+                },
+                error => {
+                    console.error(error)
+                    updateWeatherValuesByIP()
+                },
+                options
+            )
         },
         // eslint-disable-next-line react-hooks/exhaustive-deps
         []
@@ -134,8 +157,17 @@ export const useWeather = () => {
                 .then((data: AxiosResponse<IForecastResponse>) => {
                     setWeatherForecast(data.data)
                 })
-                .catch(error => {
-                    console.log(error)
+                .catch((reasson: Error | AxiosError) => {
+                    if (axios.isAxiosError(reasson)) {
+                        setError(reasson)
+                        setIsLoading(false)
+                        console.error(reasson)
+                    } else if (reasson instanceof Error) {
+                        console.error(reasson.message)
+                    }
+                })
+                .finally(() => {
+                    setIsLoading(false)
                 })
             setIsLoading(false)
         },
@@ -154,6 +186,7 @@ export const useWeather = () => {
         weatherForecast,
         location,
         isLoading,
+        error,
         getForecast,
         updateWeatherValuesByCity,
         updateWeatherValuesByIP,
