@@ -176,7 +176,7 @@ export const useWeather = () => {
     useEffect(() => {
         updateWeatherValuesByCoords()
         if (location) {
-            getForecast(location.name, 3)
+            getForecast(location.name, 7)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

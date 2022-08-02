@@ -6,6 +6,8 @@ interface IWrapperProps {
 
 export const Wrapper = styled.div<IWrapperProps>`
     & {
+        box-sizing: border-box;
+        position: relative;
         display: flex;
         flex-direction: column;
         background-color: ${props => {
@@ -17,6 +19,10 @@ export const Wrapper = styled.div<IWrapperProps>`
         transition: 0.5s;
         box-sizing: border-box;
         min-width: 240px;
+        max-width: 50vw;
+        @media screen and (max-width: 1000px) {
+            max-width: 90vw;
+        }
     }
     &:hover {
         background-color: #5290a1;

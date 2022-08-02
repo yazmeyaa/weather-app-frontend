@@ -45,3 +45,46 @@ export const CloseButton = styled.button`
         font-size: 2rem;
     }
 `
+
+export const ValuesGroups = styled.div`
+    & {
+        display: flex;
+        flex-direction: column;
+        scrollbar-width: thin;
+        scrollbar-color: orange blue;
+        scroll-behavior: smooth;
+    }
+`
+
+export const GroupName = styled.span`
+    & {
+        color: white;
+        font-size: 24px;
+    }
+`
+
+export const GroupWrapper = styled.div`
+    & {
+        display: flex;
+        overflow-x: scroll;
+        flex-direction: row;
+    }
+`
+
+export const GroupItemWrapper = styled.div`
+    & {
+        box-sizing: border-box;
+        display: flex;
+        padding: 6px;
+        flex-direction: column;
+        border: 1px solid black;
+    }
+`
+
+export const GroupsWrapper = styled.div`
+    & {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+`

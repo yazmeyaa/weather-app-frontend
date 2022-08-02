@@ -2,10 +2,14 @@ import React, { FC, useContext, useRef } from 'react'
 import { ForecastSignleDay } from 'types/forecastResponse'
 import {
     CurrentDate,
-    CurrentTemp,
-    ValuesItem,
     Wrapper,
     CloseButton,
+    ValuesItem,
+    ValuesGroups,
+    GroupItemWrapper,
+    GroupName,
+    GroupWrapper,
+    GroupsWrapper,
 } from './styled'
 import { CardsContext } from '../helpers/activeCardState'
 
@@ -39,23 +43,39 @@ export const CardFull: FC<ICards> = ({ forecastValues }) => {
                 {weekDays[currentDate.current.getDay()]}{' '}
                 {currentDate.current.getDate()}{' '}
             </CurrentDate>
-            <CurrentTemp>
-                Current temp: {forecastValues && forecastValues.day.avgtemp_c}
-            </CurrentTemp>
-            <ValuesItem>
-                Chance of rain:{' '}
-                {forecastValues && forecastValues.day.daily_chance_of_rain}
-            </ValuesItem>
-            <ValuesItem>
-                Humidity: {forecastValues && forecastValues.day.avghumidity}%
-            </ValuesItem>
-            <ValuesItem>
-                Precipitation:{' '}
-                {forecastValues && forecastValues.day.totalprecip_mm} mm
-            </ValuesItem>
-            <ValuesItem>
-                UV index: {forecastValues && forecastValues.day.uv}
-            </ValuesItem>
+            <GroupsWrapper>
+                <ValuesGroups>
+                    <GroupName>Temperature</GroupName>
+                    <GroupWrapper>
+                        {forecastValues &&
+                            forecastValues.hour.map((item, index) => {
+                                return (
+                                    <GroupItemWrapper key={index}>
+                                        <data>{index}h</data>
+                                        <ValuesItem> {item.temp_c}</ValuesItem>
+                                    </GroupItemWrapper>
+                                )
+                            })}
+                    </GroupWrapper>
+                </ValuesGroups>
+                <ValuesGroups>
+                    <GroupName>Pressure</GroupName>
+                    <GroupWrapper>
+                        {forecastValues &&
+                            forecastValues.hour.map((item, index) => {
+                                return (
+                                    <GroupItemWrapper key={index}>
+                                        <data>{index}h</data>
+                                        <ValuesItem>
+                                            {' '}
+                                            {item.pressure_mb}
+                                        </ValuesItem>
+                                    </GroupItemWrapper>
+                                )
+                            })}
+                    </GroupWrapper>
+                </ValuesGroups>
+            </GroupsWrapper>
         </Wrapper>
     )
 }
