@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { WeatherWrapper, CardsWrapper, CityNameBlock } from './styled'
 import { WeatherCard } from './weatherCard'
 import { Loading } from 'components/loading/loading'
-import { CardsContext } from './weatherCard/helpers/activeCardState'
+import { CardsContext } from 'store/currentCardSelected/cardsContext'
 
 export const WeatherPage = () => {
     const { weatherForecast, error } = useContext(WeatherValuesStore)

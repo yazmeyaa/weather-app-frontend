@@ -11,7 +11,7 @@ import {
     GroupWrapper,
     GroupsWrapper,
 } from './styled'
-import { CardsContext } from '../helpers/activeCardState'
+import { CardsContext } from 'store/currentCardSelected/cardsContext'
 
 interface ICards {
     forecastValues: ForecastSignleDay
@@ -52,9 +52,8 @@ export const CardFull: FC<ICards> = ({ forecastValues }) => {
                                 return (
                                     <GroupItemWrapper key={index}>
                                         <data>
-                                            {index < 10
-                                                ? `0${index}:00`
-                                                : `${index}:00`}
+                                            {index.toString().padStart(2, '0')}
+                                            :00
                                         </data>
                                         <ValuesItem>
                                             {' '}
@@ -72,7 +71,10 @@ export const CardFull: FC<ICards> = ({ forecastValues }) => {
                             forecastValues.hour.map((item, index) => {
                                 return (
                                     <GroupItemWrapper key={index}>
-                                        <data>{index}:00</data>
+                                        <data>
+                                            {index.toString().padStart(2, '0')}
+                                            :00
+                                        </data>
                                         <ValuesItem>
                                             {' '}
                                             {item.pressure_mb} mB

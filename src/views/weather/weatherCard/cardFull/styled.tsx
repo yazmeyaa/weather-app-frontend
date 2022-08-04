@@ -54,8 +54,6 @@ export const ValuesGroups = styled.div`
     & {
         display: flex;
         flex-direction: column;
-        scrollbar-width: thin;
-        scrollbar-color: orange blue;
         scroll-behavior: smooth;
         border: 4px solid #4177dc63;
         background-color: rgba(0, 0, 0, 0.1);
@@ -86,6 +84,9 @@ export const GroupItemWrapper = styled.div`
         padding: 6px;
         flex-direction: column;
         margin: 0px 6px;
+        border-left: 2px solid;
+        border-right: 2px solid;
+        border-color: #669bfcac;
     }
 `
 

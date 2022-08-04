@@ -1,15 +1,9 @@
-import { createContext, Dispatch, FC, ReactNode, useState } from 'react'
-type ContextType = {
-    currentCardSelected: null | number
-    setCurrentCard: Dispatch<null | number>
-}
-type ContextProviderType = {
-    children: ReactNode
-}
+import { createContext, useState } from 'react'
+import { ContextProviderType, ContextType } from './cardsContext.types'
 
 const Context = createContext<ContextType>({} as ContextType)
 
-const ContextProvider: FC<ContextProviderType> = ({ children }) => {
+const ContextProvider: ContextProviderType = ({ children }) => {
     const [currentCardSelected, setCurrentCardSelected] = useState<
         number | null
     >(null)
