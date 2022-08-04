@@ -20,6 +20,10 @@ export const ValuesItem = styled.span`
 
 export const CurrentDate = styled.div`
     & {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 6px;
         font-size: ${fluidTypography(320, 1920, 18, 46)};
     }
 `
@@ -53,6 +57,10 @@ export const ValuesGroups = styled.div`
         scrollbar-width: thin;
         scrollbar-color: orange blue;
         scroll-behavior: smooth;
+        border: 4px solid #4177dc63;
+        background-color: rgba(0, 0, 0, 0.1);
+        padding: 12px 6px;
+        border-radius: 16px;
     }
 `
 
@@ -77,7 +85,7 @@ export const GroupItemWrapper = styled.div`
         display: flex;
         padding: 6px;
         flex-direction: column;
-        border: 1px solid black;
+        margin: 0px 6px;
     }
 `
 

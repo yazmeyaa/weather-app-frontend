@@ -51,8 +51,15 @@ export const CardFull: FC<ICards> = ({ forecastValues }) => {
                             forecastValues.hour.map((item, index) => {
                                 return (
                                     <GroupItemWrapper key={index}>
-                                        <data>{index}h</data>
-                                        <ValuesItem> {item.temp_c}</ValuesItem>
+                                        <data>
+                                            {index < 10
+                                                ? `0${index}:00`
+                                                : `${index}:00`}
+                                        </data>
+                                        <ValuesItem>
+                                            {' '}
+                                            {item.temp_c}°C
+                                        </ValuesItem>
                                     </GroupItemWrapper>
                                 )
                             })}
@@ -65,10 +72,10 @@ export const CardFull: FC<ICards> = ({ forecastValues }) => {
                             forecastValues.hour.map((item, index) => {
                                 return (
                                     <GroupItemWrapper key={index}>
-                                        <data>{index}h</data>
+                                        <data>{index}:00</data>
                                         <ValuesItem>
                                             {' '}
-                                            {item.pressure_mb}
+                                            {item.pressure_mb} mB
                                         </ValuesItem>
                                     </GroupItemWrapper>
                                 )
