@@ -5,7 +5,7 @@ import { WeatherCard } from './weatherCard'
 import { Loading } from 'components/loading/loading'
 import { CardsContext } from './weatherCard/helpers/activeCardState'
 
-export const LandingPage = () => {
+export const WeatherPage = () => {
     const { weatherForecast, error } = useContext(WeatherValuesStore)
     const { currentCardSelected, setCurrentCard } = useContext(CardsContext)
     return (
