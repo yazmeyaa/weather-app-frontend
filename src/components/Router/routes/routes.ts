@@ -1,4 +1,4 @@
-import { WeatherPage } from 'views/weather'
+import { WeatherPage } from 'views/weather/weatherPage'
 import { routesListType } from './routes.types'
 
 const routesList: routesListType = [

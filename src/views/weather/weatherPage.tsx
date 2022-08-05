@@ -1,12 +1,16 @@
 import { WeatherValuesStore } from 'store/weatherValues/weatherValuesStore'
 import { useContext } from 'react'
-import { WeatherWrapper, CardsWrapper, CityNameBlock } from './styled'
-import { WeatherCard } from './weatherCard'
+import {
+    WeatherWrapper,
+    CardsWrapper,
+    CityNameBlock,
+} from './weatherPage.styles'
+import { WeatherCard } from './weatherCard/weatherCard'
 import { Loading } from 'components/loading/loading'
 import { CardsContext } from 'store/currentCardSelected/cardsContext'
 
 export const WeatherPage = () => {
-    const { weatherForecast, error } = useContext(WeatherValuesStore)
+    const { weatherForecast } = useContext(WeatherValuesStore)
     const { currentCardSelected, setCurrentCard } = useContext(CardsContext)
     return (
         <WeatherWrapper>
@@ -28,7 +32,6 @@ export const WeatherPage = () => {
                 ) : (
                     <Loading />
                 )}
-                {error && error.message}
             </CardsWrapper>
         </WeatherWrapper>
     )
