@@ -2,8 +2,9 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.div`
     & {
-        position: relative;
         padding: 2px 6px;
+        align-self: center;
+        margin: 0px auto;
     }
 `
 

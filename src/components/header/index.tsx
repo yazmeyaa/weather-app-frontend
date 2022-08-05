@@ -1,4 +1,4 @@
-import { SearchBar } from './searchBar'
+import { SearchBar } from './searchBar/searchBar'
 import { HeaderContainer, HeaderTitle } from './styled'
 
 export const Header = () => {
