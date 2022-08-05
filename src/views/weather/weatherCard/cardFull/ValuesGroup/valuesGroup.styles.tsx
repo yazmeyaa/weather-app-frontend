@@ -24,6 +24,24 @@ export const GroupWrapper = styled.div`
         display: flex;
         overflow-x: scroll;
         flex-direction: row;
+        scrollbar-color: #d4aa70 #e4e4e4;
+        scrollbar-width: thin;
+        scrollbar-gutter: stable;
+    }
+    &::-webkit-scrollbar {
+        width: 100%;
+        padding: 1rem;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: #3a63ae;
+        border-radius: 0.5rem;
+        border: 2px solid rgba(0, 0, 0, 0.2);
+    }
+    &::-webkit-scrollbar-thumb {
+        box-sizing: border-box;
+        border-radius: 0.5rem;
+        background-color: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(0, 0, 0, 0.2);
     }
 `
 

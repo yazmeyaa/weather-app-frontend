@@ -1,16 +1,21 @@
 import { Fragment, useRef } from 'react'
 import { weekDays } from '../helpers/weekdays'
-import { ValuesItem } from './cardCompact.styles'
+import { ValuesItem, CardDate } from './cardCompact.styles'
 import { CardCompactPropsType } from './cardCompact.types'
+import { units, valueNames } from '../helpers/units'
 
 export const CardCompact: CardCompactPropsType = ({ values }) => {
     const currentDate = useRef<Date>(new Date(values.date))
     return (
         <Fragment>
-            {weekDays[currentDate.current.getDay()]}
-            <ValuesItem>Avarage temp: {values.day.avgtemp_c}</ValuesItem>
+            <CardDate>{`${
+                weekDays[currentDate.current.getDay()]
+            }, ${currentDate.current.getDate()}`}</CardDate>
             <ValuesItem>
-                Chance of rain: {values.day.daily_chance_of_rain}
+                {`${valueNames.temp_c} ${values.day.avgtemp_c} ${units.temp_c}`}
+            </ValuesItem>
+            <ValuesItem>
+                {`${valueNames.chance_of_rain} ${values.day.daily_chance_of_rain} ${units.chance_of_rain}`}
             </ValuesItem>
         </Fragment>
     )
