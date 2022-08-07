@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 export const WeatherWrapper = styled.div`
     & {
+        box-sizing: border-box;
+        max-width: 100vw;
         display: flex;
         align-items: center;
         flex-direction: column;

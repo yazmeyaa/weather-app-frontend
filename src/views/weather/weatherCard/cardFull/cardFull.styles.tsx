@@ -10,6 +10,18 @@ export const Wrapper = styled.div`
         color: white;
         font-size: ${fluidTypography(320, 1920, 20, 26)};
         cursor: default;
+        animation-name: wrapperOpening;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+
+        @keyframes wrapperOpening {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
     }
 `
 export const ValuesItem = styled.span`

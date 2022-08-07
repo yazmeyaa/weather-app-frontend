@@ -6,6 +6,9 @@ interface IWrapperProps {
 
 export const Wrapper = styled.div<IWrapperProps>`
     & {
+        cursor: ${props => {
+            return props.selected ? 'default' : 'pointer'
+        }};
         box-sizing: border-box;
         transition: 0.5s;
         position: relative;
@@ -22,12 +25,12 @@ export const Wrapper = styled.div<IWrapperProps>`
         min-width: 240px;
         max-width: 50vw;
         width: ${props => {
-            return props.selected ? '50vw' : 'fit-content'
+            return props.selected ? '50vw' : '240px'
         }};
         @media screen and (max-width: 1000px) {
             max-width: 90vw;
             width: ${props => {
-                return props.selected ? '90vw' : '240px'
+                return props.selected ? '100vw' : '240px'
             }};
         }
     }
