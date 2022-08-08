@@ -5,9 +5,10 @@ import {
     CardsWrapper,
     CityNameBlock,
 } from './weatherPage.styles'
-import { WeatherCard } from './weatherCard/weatherCard'
+import { WeatherCard } from './weatherForecastCard/weatherCard'
 import { Loading } from 'components/loading/loading'
 import { CardsContext } from 'store/currentCardSelected/cardsContext'
+import { CurrentWeatherCard } from './currentWeatherCard/currentWeatherCard'
 
 export const WeatherPage = () => {
     const { weatherForecast } = useContext(WeatherValuesStore)
@@ -15,6 +16,7 @@ export const WeatherPage = () => {
     return (
         <WeatherWrapper>
             <CityNameBlock>{weatherForecast?.location.name}</CityNameBlock>
+            <CurrentWeatherCard />
             <CardsWrapper>
                 {weatherForecast ? (
                     weatherForecast.forecast.forecastday.map((item, index) => {

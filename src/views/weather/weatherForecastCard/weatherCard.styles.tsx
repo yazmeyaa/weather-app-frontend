@@ -20,7 +20,7 @@ export const Wrapper = styled.div<IWrapperProps>`
         border: 1px solid #396571;
         height: fit-content;
         width: fit-content;
-        padding: 2rem;
+        padding: 1rem 2rem;
         box-sizing: border-box;
         min-width: 240px;
         max-width: 50vw;

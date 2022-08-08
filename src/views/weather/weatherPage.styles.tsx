@@ -32,7 +32,7 @@ export const CardsWrapper = styled.div`
 
         @media screen and (min-width: 1000px) {
             flex-direction: row;
-            align-items: baseline;
+            align-items: flex-start;
         }
     }
 `

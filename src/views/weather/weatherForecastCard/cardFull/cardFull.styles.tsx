@@ -50,7 +50,6 @@ export const CloseButton = styled.button`
     & {
         position: absolute;
         left: 100%;
-        top: -2rem;
         width: fit-content;
         padding: 6px;
         background-color: transparent;
