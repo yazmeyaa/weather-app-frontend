@@ -1,6 +1,6 @@
 import { appConfig } from '@config/appConfig'
 import axios, { AxiosResponse, AxiosError } from 'axios'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { IForecastResponse } from 'types/forecastResponse'
 import {
     IWeatherResponse,
@@ -14,14 +14,28 @@ export const requestPathes = {
     getForecast: `${appConfig.backendUrl}/api/get_forecast`,
 }
 
+export type LoadingStateType = {
+    forecast: boolean
+    current: boolean
+    location: boolean
+}
+
 export const useWeather = () => {
     const [weatherValues, setWeatherValues] =
         useState<WeatherValuesType | null>(null)
     const [weatherForecast, setWeatherForecast] =
         useState<IForecastResponse | null>(null)
     const [location, setLocation] = useState<LocationType | null>(null)
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<LoadingStateType>({
+        current: false,
+        forecast: false,
+        location: false,
+    })
     const [error, setError] = useState<null | undefined | AxiosError>(null)
+
+    const memoisedLoading = useMemo(() => {
+        return { ...isLoading }
+    }, [isLoading])
 
     /*
      * Function allows to update weather values by city name.
@@ -30,7 +44,9 @@ export const useWeather = () => {
      */
     const updateWeatherValuesByCity = useCallback(
         async function updateWeatherValuesByCity(cityNameToSearch: string) {
-            setIsLoading(true)
+            setIsLoading(prev => {
+                return { ...prev, current: true }
+            })
             await axios({
                 method: 'GET',
                 url: requestPathes.getWeatherByCity,
@@ -41,21 +57,29 @@ export const useWeather = () => {
                 .then((response: AxiosResponse<IWeatherResponse>) => {
                     setLocation(response.data.location)
                     setWeatherValues(response.data.current)
-                    setIsLoading(false)
+                    setIsLoading(prev => {
+                        return { ...prev, current: false }
+                    })
                 })
                 .catch((reasson: Error | AxiosError) => {
                     if (axios.isAxiosError(reasson)) {
                         setError(reasson)
-                        setIsLoading(false)
+                        setIsLoading(prev => {
+                            return { ...prev, current: false }
+                        })
                         console.error(reasson)
                     } else if (reasson instanceof Error) {
                         console.error(reasson.message)
                     }
                 })
                 .finally(() => {
-                    setIsLoading(false)
+                    setIsLoading(prev => {
+                        return { ...prev, current: false }
+                    })
                 })
-            setIsLoading(false)
+            setIsLoading(prev => {
+                return { ...prev, current: false }
+            })
         },
         []
     )
@@ -65,7 +89,9 @@ export const useWeather = () => {
      * @return ${IWeatherResponse} weatherAPI response
      */
     const updateWeatherValuesByIP = useCallback(async () => {
-        setIsLoading(true)
+        setIsLoading(prev => {
+            return { ...prev, current: true }
+        })
 
         await axios({
             method: 'GET',
@@ -74,19 +100,25 @@ export const useWeather = () => {
             .then((response: AxiosResponse<IWeatherResponse>) => {
                 setLocation(response.data.location)
                 setWeatherValues(response.data.current)
-                setIsLoading(false)
+                setIsLoading(prev => {
+                    return { ...prev, current: false }
+                })
             })
             .catch((reasson: Error | AxiosError) => {
                 if (axios.isAxiosError(reasson)) {
                     setError(reasson)
-                    setIsLoading(false)
+                    setIsLoading(prev => {
+                        return { ...prev, current: false }
+                    })
                     console.error(reasson)
                 } else if (reasson instanceof Error) {
                     console.error(reasson.message)
                 }
             })
             .finally(() => {
-                setIsLoading(false)
+                setIsLoading(prev => {
+                    return { ...prev, current: false }
+                })
             })
     }, [])
 
@@ -97,7 +129,9 @@ export const useWeather = () => {
      */
     const updateWeatherValuesByCoords = useCallback(
         (options?: PositionOptions) => {
-            setIsLoading(true)
+            setIsLoading(prev => {
+                return { ...prev, current: true }
+            })
             navigator.geolocation.getCurrentPosition(
                 async result => {
                     await axios({
@@ -108,21 +142,27 @@ export const useWeather = () => {
                         },
                     })
                         .then((response: AxiosResponse<IWeatherResponse>) => {
-                            setIsLoading(false)
+                            setIsLoading(prev => {
+                                return { ...prev, current: false }
+                            })
                             setWeatherValues(response.data.current)
                             setLocation(response.data.location)
                         })
                         .catch((reasson: Error | AxiosError) => {
                             if (axios.isAxiosError(reasson)) {
                                 setError(reasson)
-                                setIsLoading(false)
+                                setIsLoading(prev => {
+                                    return { ...prev, current: false }
+                                })
                                 console.error(reasson)
                             } else if (reasson instanceof Error) {
                                 console.error(reasson.message)
                             }
                         })
                         .finally(() => {
-                            setIsLoading(false)
+                            setIsLoading(prev => {
+                                return { ...prev, current: false }
+                            })
                         })
                 },
                 error => {
@@ -144,7 +184,9 @@ export const useWeather = () => {
 
     const getForecast = useCallback(
         async (cityNameToSearch: string, days: number) => {
-            setIsLoading(true)
+            setIsLoading(prev => {
+                return { ...prev, forecast: true }
+            })
 
             await axios({
                 url: requestPathes.getForecast,
@@ -156,20 +198,26 @@ export const useWeather = () => {
             })
                 .then((data: AxiosResponse<IForecastResponse>) => {
                     setWeatherForecast(data.data)
+                    setIsLoading(prev => {
+                        return { ...prev, forecast: false }
+                    })
                 })
                 .catch((reasson: Error | AxiosError) => {
                     if (axios.isAxiosError(reasson)) {
                         setError(reasson)
-                        setIsLoading(false)
+                        setIsLoading(prev => {
+                            return { ...prev, forecast: false }
+                        })
                         console.error(reasson)
                     } else if (reasson instanceof Error) {
                         console.error(reasson.message)
                     }
                 })
                 .finally(() => {
-                    setIsLoading(false)
+                    setIsLoading(prev => {
+                        return { ...prev, forecast: false }
+                    })
                 })
-            setIsLoading(false)
         },
         []
     )
@@ -186,6 +234,7 @@ export const useWeather = () => {
         weatherForecast,
         location,
         isLoading,
+        memoisedLoading,
         error,
         getForecast,
         updateWeatherValuesByCity,

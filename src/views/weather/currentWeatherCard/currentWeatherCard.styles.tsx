@@ -7,10 +7,39 @@ export const Wrapper = styled.div`
         padding: 12px;
         box-sizing: border-box;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
         background-color: blueviolet;
+        gap: 12px;
+    }
+`
+export const ValuesGroup = styled.section`
+    & {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+`
+export const ValueContainer = styled.div`
+    & {
+        display: flex;
+    }
+`
+
+export const ValueName = styled.strong`
+    & {
         color: white;
         font-weight: 700;
         font-size: ${fluidTypography(320, 1920, 20, 32)};
+    }
+`
+
+export const SVGWrapper = styled.div`
+    & {
+        height: auto;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 `

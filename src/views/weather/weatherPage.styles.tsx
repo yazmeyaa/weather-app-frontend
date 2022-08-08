@@ -29,7 +29,6 @@ export const CardsWrapper = styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
-
         @media screen and (min-width: 1000px) {
             flex-direction: row;
             align-items: flex-start;
