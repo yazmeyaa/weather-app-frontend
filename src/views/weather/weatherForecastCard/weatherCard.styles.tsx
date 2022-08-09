@@ -22,15 +22,15 @@ export const Wrapper = styled.div<IWrapperProps>`
         width: fit-content;
         padding: 1rem 2rem;
         box-sizing: border-box;
-        min-width: 240px;
+        min-width: 300px;
         max-width: 50vw;
         width: ${props => {
-            return props.selected ? '50vw' : '240px'
+            return props.selected ? '50vw' : '33%'
         }};
         @media screen and (max-width: 1000px) {
             max-width: 90vw;
             width: ${props => {
-                return props.selected ? '100vw' : '240px'
+                return props.selected ? '100vw' : '33%'
             }};
         }
     }

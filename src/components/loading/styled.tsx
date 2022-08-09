@@ -16,7 +16,7 @@ export const Loader = styled.div<LoaderProps>`
     & {
         display: block;
         width: 20px;
-        height: 150px;
+        height: 50px;
         transform-origin: top;
         transform: rotatex(180deg) translate3d(0, -200px, 0);
         background-color: ${props => {

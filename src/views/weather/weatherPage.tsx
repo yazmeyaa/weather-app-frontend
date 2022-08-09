@@ -1,5 +1,5 @@
 import { WeatherValuesStore } from 'store/weatherValues/weatherValuesStore'
-import { ReactNode, useContext, useEffect } from 'react'
+import { ReactNode, useContext, useMemo } from 'react'
 import {
     WeatherWrapper,
     CardsWrapper,
@@ -13,19 +13,22 @@ import { withLoading } from 'helpers/withLoadingHOC/withLoading'
 export const WeatherPage = () => {
     const { weatherForecast, memoisedLoading } = useContext(WeatherValuesStore)
     const { currentCardSelected, setCurrentCard } = useContext(CardsContext)
-    useEffect(() => {
-        console.log(memoisedLoading)
+    const isLoading = useMemo(() => {
+        console.log(
+            memoisedLoading.current,
+            memoisedLoading.forecast,
+            memoisedLoading.location
+        )
+        return (
+            memoisedLoading.current ||
+            memoisedLoading.forecast ||
+            memoisedLoading.location
+        )
     }, [memoisedLoading])
 
     return (
         <WeatherWrapper>
-            <Loading
-                loading={
-                    memoisedLoading.current ||
-                    memoisedLoading.forecast ||
-                    memoisedLoading.location
-                }
-            >
+            <Loading loading={isLoading}>
                 <CityNameBlock>{weatherForecast?.location.name}</CityNameBlock>
                 <CurrentWeatherCard />
                 <CardsWrapper>

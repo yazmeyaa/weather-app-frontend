@@ -72,11 +72,6 @@ export const useWeather = () => {
                         console.error(reasson.message)
                     }
                 })
-                .finally(() => {
-                    setIsLoading(prev => {
-                        return { ...prev, current: false }
-                    })
-                })
             setIsLoading(prev => {
                 return { ...prev, current: false }
             })
@@ -114,11 +109,6 @@ export const useWeather = () => {
                 } else if (reasson instanceof Error) {
                     console.error(reasson.message)
                 }
-            })
-            .finally(() => {
-                setIsLoading(prev => {
-                    return { ...prev, current: false }
-                })
             })
     }, [])
 
@@ -158,11 +148,6 @@ export const useWeather = () => {
                             } else if (reasson instanceof Error) {
                                 console.error(reasson.message)
                             }
-                        })
-                        .finally(() => {
-                            setIsLoading(prev => {
-                                return { ...prev, current: false }
-                            })
                         })
                 },
                 error => {
@@ -212,11 +197,6 @@ export const useWeather = () => {
                     } else if (reasson instanceof Error) {
                         console.error(reasson.message)
                     }
-                })
-                .finally(() => {
-                    setIsLoading(prev => {
-                        return { ...prev, forecast: false }
-                    })
                 })
         },
         []
