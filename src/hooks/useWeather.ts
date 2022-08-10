@@ -84,14 +84,22 @@ export const useWeather = () => {
      * @return ${IWeatherResponse} weatherAPI response
      */
     const updateWeatherValuesByIP = useCallback(async () => {
+        /*
+         * Set loading state to true
+         */
         setIsLoading(prev => {
             return { ...prev, current: true }
         })
-
+        /*
+         * Request data from backend.
+         */
         await axios({
             method: 'GET',
             url: requestPathes.getWeatherByIP,
         })
+            /*
+             * If data was recieved write it to state.
+             */
             .then((response: AxiosResponse<IWeatherResponse>) => {
                 setLocation(response.data.location)
                 setWeatherValues(response.data.current)
@@ -99,6 +107,10 @@ export const useWeather = () => {
                     return { ...prev, current: false }
                 })
             })
+            /*
+             * If request returns error write it to error state.
+             * Hard error validation.
+             */
             .catch((reasson: Error | AxiosError) => {
                 if (axios.isAxiosError(reasson)) {
                     setError(reasson)

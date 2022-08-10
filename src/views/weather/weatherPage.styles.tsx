@@ -12,15 +12,17 @@ export const WeatherWrapper = styled.div`
         flex-grow: 1;
         align-self: center;
         padding: 10px;
-        min-width: 50vw;
         transition: 1s;
     }
 `
 
-export const CityNameBlock = styled.div`
+export const CityNameBlock = styled.h1`
     & {
         font-size: ${fluidTypography(320, 1920, 24, 32)};
         margin: 1rem 0px;
+        font-family: 'Inter';
+        letter-spacing: 1px;
+        font-weight: 600;
     }
 `
 

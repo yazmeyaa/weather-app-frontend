@@ -33,6 +33,7 @@ export const WeatherValues: WeatherValuesProviderProps = ({ children }) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location])
+
     const store: WeatherValuesContextType = useMemo(() => {
         return {
             weatherForecast,

@@ -30,8 +30,14 @@ export const ValueContainer = styled.div`
 export const ValueName = styled.strong`
     & {
         color: white;
-        font-weight: 700;
+        font-family: 'Inter';
         font-size: ${fluidTypography(320, 1920, 20, 32)};
+    }
+`
+
+export const Value = styled(ValueName)`
+    & {
+        font-size: ${fluidTypography(320, 1920, 18, 30)};
     }
 `
 
