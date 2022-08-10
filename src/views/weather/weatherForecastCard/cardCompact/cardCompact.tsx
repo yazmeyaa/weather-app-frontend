@@ -1,10 +1,13 @@
-import { Fragment, useRef } from 'react'
+import { Fragment, useRef, memo } from 'react'
 import { weekDays } from '../helpers/weekdays'
 import { ValuesItem, CardDate } from './cardCompact.styles'
 import { CardCompactPropsType } from './cardCompact.types'
-import { units, valueNames } from '../helpers/units'
+import { units } from '../helpers/units'
+import { valueNames } from '../helpers/values'
 
-export const CardCompact: CardCompactPropsType = ({ values }) => {
+export const CardCompact: CardCompactPropsType = memo(function CardCompact({
+    values,
+}) {
     const currentDate = useRef<Date>(new Date(values.date))
     return (
         <Fragment>
@@ -19,4 +22,4 @@ export const CardCompact: CardCompactPropsType = ({ values }) => {
             </ValuesItem>
         </Fragment>
     )
-}
+})

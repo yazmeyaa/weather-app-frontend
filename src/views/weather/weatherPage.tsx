@@ -1,34 +1,27 @@
-import { WeatherValuesStore } from 'store/weatherValues/weatherValuesStore'
-import { ReactNode, useContext, useMemo } from 'react'
+import { stores } from 'store/'
+import { memo, ReactNode, useContext } from 'react'
 import {
     WeatherWrapper,
     CardsWrapper,
     CityNameBlock,
 } from './weatherPage.styles'
 import { WeatherCard } from './weatherForecastCard/weatherCard'
-import { CardsContext } from 'store/currentCardSelected/cardsContext'
 import { CurrentWeatherCard } from './currentWeatherCard/currentWeatherCard'
-import { withLoading } from 'helpers/withLoadingHOC/withLoading'
+import { withLoading } from 'shared/withLoadingHOC/withLoading'
 
 export const WeatherPage = () => {
-    const { weatherForecast, memoisedLoading } = useContext(WeatherValuesStore)
-    const { currentCardSelected, setCurrentCard } = useContext(CardsContext)
-    const isLoading = useMemo(() => {
-        console.log(
-            memoisedLoading.current,
-            memoisedLoading.forecast,
-            memoisedLoading.location
-        )
-        return (
-            memoisedLoading.current ||
-            memoisedLoading.forecast ||
-            memoisedLoading.location
-        )
-    }, [memoisedLoading])
+    const { weatherForecast, isLoading } = useContext(stores.weather)
+    const { currentCardSelected, setCurrentCard } = useContext(stores.cards)
 
     return (
         <WeatherWrapper>
-            <Loading loading={isLoading}>
+            <Loading
+                loading={
+                    isLoading.current ||
+                    isLoading.forecast ||
+                    isLoading.location
+                }
+            >
                 <CityNameBlock>{weatherForecast?.location.name}</CityNameBlock>
                 <CurrentWeatherCard />
                 <CardsWrapper>
@@ -53,6 +46,8 @@ export const WeatherPage = () => {
     )
 }
 
-const Loading = withLoading(({ children }: { children: ReactNode }) => {
-    return <>{children}</>
-})
+const Loading = memo(
+    withLoading(({ children }: { children: ReactNode }) => {
+        return <>{children}</>
+    })
+)

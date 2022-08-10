@@ -1,10 +1,11 @@
+import { memo } from 'react'
 import styled from 'styled-components'
 
 interface IWrapperProps {
     selected: boolean
 }
 
-export const Wrapper = styled.div<IWrapperProps>`
+export const Wrapper = memo(styled.div<IWrapperProps>`
     & {
         cursor: ${props => {
             return props.selected ? 'default' : 'pointer'
@@ -37,7 +38,8 @@ export const Wrapper = styled.div<IWrapperProps>`
     &:hover {
         background-color: #5290a1;
     }
-`
+`)
+
 export const ValuesItem = styled.span`
     & {
         font-size: medium;

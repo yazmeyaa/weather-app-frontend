@@ -1,4 +1,6 @@
-import { valueNames, units } from '../../helpers/units'
+import { memo } from 'react'
+import { units } from '../../helpers/units'
+import { valueNames } from '../../helpers/values'
 import {
     GroupItemWrapper,
     GroupName,
@@ -8,7 +10,10 @@ import {
 } from './valuesGroup.styles'
 import { ValuesGroupPropsType } from './valuesGroup.types'
 
-const ValuesGroup: ValuesGroupPropsType = ({ forecastValues, value }) => {
+const ValuesGroup: ValuesGroupPropsType = memo(function ValuesGroup({
+    forecastValues,
+    value,
+}) {
     return (
         <ValuesGroups>
             <GroupName>{valueNames[value]}</GroupName>
@@ -29,5 +34,5 @@ const ValuesGroup: ValuesGroupPropsType = ({ forecastValues, value }) => {
             </GroupWrapper>
         </ValuesGroups>
     )
-}
+})
 export { ValuesGroup }

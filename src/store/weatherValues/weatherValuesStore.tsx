@@ -1,5 +1,5 @@
 import { useWeather } from 'hooks/useWeather'
-import { createContext, useEffect, useLayoutEffect } from 'react'
+import { createContext, useEffect, useLayoutEffect, useMemo } from 'react'
 import {
     WeatherValuesProviderProps,
     WeatherValuesContextType,
@@ -33,7 +33,20 @@ export const WeatherValues: WeatherValuesProviderProps = ({ children }) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location])
-    const store: WeatherValuesContextType = {
+    const store: WeatherValuesContextType = useMemo(() => {
+        return {
+            weatherForecast,
+            weatherValues,
+            getForecast,
+            isLoading,
+            memoisedLoading,
+            error,
+            location,
+            updateWeatherValuesByCity,
+            updateWeatherValuesByCoords,
+            updateWeatherValuesByIP,
+        }
+    }, [
         weatherForecast,
         weatherValues,
         getForecast,
@@ -44,7 +57,7 @@ export const WeatherValues: WeatherValuesProviderProps = ({ children }) => {
         updateWeatherValuesByCity,
         updateWeatherValuesByCoords,
         updateWeatherValuesByIP,
-    }
+    ])
 
     return (
         <WeatherValuesStore.Provider value={store}>

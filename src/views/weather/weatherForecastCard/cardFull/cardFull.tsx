@@ -1,19 +1,19 @@
-import React, { useContext, useRef } from 'react'
+import React, { memo, useContext, useRef } from 'react'
 import {
     CurrentDate,
     Wrapper,
     CloseButton,
     GroupsWrapper,
 } from './cardFull.styles'
-import { CardsContext } from 'store/currentCardSelected/cardsContext'
 import { ValuesGroup } from './ValuesGroup/valuesGroup'
 import { CardsProps } from './cardFull.types'
 import { weekDays } from '../helpers/weekdays'
 import { valuesType } from './ValuesGroup/valuesGroup.types'
+import { stores } from 'store'
 
-export const CardFull: CardsProps = ({ forecastValues }) => {
+export const CardFull: CardsProps = memo(function CardFull({ forecastValues }) {
     const currentDate = useRef<Date>(new Date(forecastValues.date))
-    const { setCurrentCard } = useContext(CardsContext)
+    const { setCurrentCard } = useContext(stores.cards)
 
     const date = `${
         weekDays[currentDate.current.getDay()]
@@ -47,4 +47,4 @@ export const CardFull: CardsProps = ({ forecastValues }) => {
             </GroupsWrapper>
         </Wrapper>
     )
-}
+})

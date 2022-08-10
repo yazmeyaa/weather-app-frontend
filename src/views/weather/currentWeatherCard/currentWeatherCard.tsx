@@ -1,28 +1,43 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { WeatherValuesStore } from 'store/weatherValues/weatherValuesStore'
 import {
     Wrapper,
     ValueName,
     ValueContainer,
     ValuesGroup,
-    SVGWrapper,
 } from './currentWeatherCard.styles'
-import { useDynamicSVGImport } from 'hooks/useDynamicSVGImport'
-import { ReactSVG } from 'react-svg'
+import { weatherValuesNames } from './helpers/names'
+import { unitsNames } from './helpers/units'
+import { WeatherValuesKeys } from './helpers/values.types'
 
 export const CurrentWeatherCard = () => {
+    const [valuseToRender] = useState<Array<WeatherValuesKeys>>([
+        'temp_c',
+        'humidity',
+        'wind_kph',
+    ])
     const { weatherValues } = useContext(WeatherValuesStore)
-    const { SvgIcon } = useDynamicSVGImport('Sun')
+
+    function displayValue(valueName: WeatherValuesKeys) {
+        if (!weatherValues) {
+            return 'Cant get values.'
+        }
+        return `${weatherValuesNames[valueName]} ${weatherValues[valueName]} ${unitsNames[valueName]} `
+    }
     return (
         <Wrapper>
             <ValuesGroup>
                 <ValueContainer>
-                    <ValueName>
-                        temp_c {weatherValues && weatherValues.temp_c}
-                    </ValueName>
+                    {weatherValues &&
+                        valuseToRender.map((item, index) => {
+                            return (
+                                <ValueName key={index}>
+                                    {displayValue(item)}
+                                </ValueName>
+                            )
+                        })}
                 </ValueContainer>
             </ValuesGroup>
-            <SVGWrapper>{SvgIcon && <ReactSVG src={SvgIcon} />}</SVGWrapper>
         </Wrapper>
     )
 }

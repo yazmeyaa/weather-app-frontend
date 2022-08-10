@@ -1,7 +1,7 @@
 import { createContext, useState } from 'react'
 import { StateType, UserStateProviderType } from './userState.types'
 
-const UserState = createContext({})
+export const UserState = createContext({})
 
 export const UserStateProvider: UserStateProviderType = ({ children }) => {
     const [userData, setUserData] = useState<StateType>()

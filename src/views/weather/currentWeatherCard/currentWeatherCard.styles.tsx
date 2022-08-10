@@ -4,7 +4,7 @@ import styled from 'styled-components'
 export const Wrapper = styled.div`
     & {
         width: 100%;
-        padding: 12px;
+        padding: 20px;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
@@ -23,6 +23,7 @@ export const ValuesGroup = styled.section`
 export const ValueContainer = styled.div`
     & {
         display: flex;
+        flex-direction: column;
     }
 `
 
