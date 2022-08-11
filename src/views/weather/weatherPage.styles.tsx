@@ -12,7 +12,6 @@ export const WeatherWrapper = styled.div`
         flex-grow: 1;
         align-self: center;
         padding: 10px;
-        transition: 1s;
     }
 `
 

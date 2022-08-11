@@ -11,7 +11,7 @@ export const Wrapper = memo(styled.div<IWrapperProps>`
             return props.selected ? 'default' : 'pointer'
         }};
         box-sizing: border-box;
-        transition: 0.5s;
+        transition: 0.1s;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -31,7 +31,7 @@ export const Wrapper = memo(styled.div<IWrapperProps>`
         @media screen and (max-width: 1000px) {
             max-width: 90vw;
             width: ${props => {
-                return props.selected ? '100vw' : '33%'
+                return props.selected ? '100vw' : '32%'
             }};
         }
     }

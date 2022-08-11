@@ -34,6 +34,7 @@ html {
 body {
 	line-height: 1;
 	height: 100%;
+	background-color: #cdf5ff46;
 }
 ol, ul {
 	list-style: none;
