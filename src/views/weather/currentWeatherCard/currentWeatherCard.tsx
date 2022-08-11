@@ -1,3 +1,4 @@
+import { Icon } from 'components/SVG/SVGIcon'
 import { useContext, useState } from 'react'
 import { WeatherValuesStore } from 'store/weatherValues/weatherValuesStore'
 import {
@@ -17,6 +18,7 @@ export const CurrentWeatherCard = () => {
         'wind_kph',
     ])
     const { weatherValues } = useContext(WeatherValuesStore)
+
     return (
         <Wrapper>
             <BackgroundBlur>
@@ -32,6 +34,12 @@ export const CurrentWeatherCard = () => {
                             })}
                     </ValueContainer>
                 </ValuesGroup>
+                <Icon
+                    name="Sun"
+                    oncompleted={(name, elem) => {
+                        console.log(name, elem)
+                    }}
+                />
             </BackgroundBlur>
         </Wrapper>
     )

@@ -1,7 +1,10 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-interface UseDynamicSVGImportOptions {
-    onCompleted?: (name: string, SvgIcon: string | undefined) => void
+export interface UseDynamicSVGImportOptions {
+    onCompleted?: (
+        name: string,
+        SvgIcon: React.FC<React.SVGProps<SVGSVGElement>> | undefined
+    ) => void
     onError?: (err: Error) => void
 }
 
@@ -9,32 +12,30 @@ export function useDynamicSVGImport(
     name: string,
     options: UseDynamicSVGImportOptions = {}
 ) {
-    const [ImportedIcon, setImportedIcon] = useState<string | null>(null)
+    const ImportedIconRef = useRef<React.FC<React.SVGProps<SVGSVGElement>>>()
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<Error | null>(null)
     const { onCompleted, onError } = options
 
-    const getIcon = useCallback(async (name: string) => {
-        setLoading(false)
-        try {
-            const importedIcon = await import(`assets/weather-icons/${name}`)
-            setImportedIcon(importedIcon.default)
-            onCompleted?.(name, importedIcon.default)
-        } catch (err) {
-            if (err instanceof Error) {
-                setError(err)
-                onError?.(err)
-            }
-        } finally {
-            setLoading(false)
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
     useEffect(() => {
-        getIcon(name)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+        setLoading(true)
+        const importIcon = async (): Promise<void> => {
+            try {
+                ImportedIconRef.current = (
+                    await import(`assets/weather-icons/${name}.svg`)
+                ).ReactComponent
+                onCompleted?.(name, ImportedIconRef.current)
+            } catch (err) {
+                if (err instanceof Error) {
+                    onError?.(err)
+                    setError(err)
+                }
+            } finally {
+                setLoading(false)
+            }
+        }
+        importIcon()
+    }, [name, onCompleted, onError])
 
-    return { error, loading, SvgIcon: ImportedIcon }
+    return { error, loading, SvgIcon: ImportedIconRef.current }
 }
