@@ -22,8 +22,11 @@ export function useDynamicSVGImport(
         const importIcon = async (): Promise<void> => {
             try {
                 ImportedIconRef.current = (
-                    await import(`assets/weather-icons/${name}.svg`)
-                ).ReactComponent
+                    await import(
+                        `!!@svgr/webpack?-svgo,+titleProp,+ref!../assets/weather-icons/${name}.svg`
+                    )
+                ).default
+
                 onCompleted?.(name, ImportedIconRef.current)
             } catch (err) {
                 if (err instanceof Error) {

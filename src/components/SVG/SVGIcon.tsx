@@ -27,7 +27,7 @@ export const Icon: React.FC<IconProps> = ({
         return <Loading />
     }
     if (SvgIcon) {
-        return <SvgIcon {...rest} />
+        return <svg />
     }
     return null
 }

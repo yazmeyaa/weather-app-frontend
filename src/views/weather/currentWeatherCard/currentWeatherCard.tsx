@@ -12,6 +12,7 @@ import { displayValue } from './functions/displayValues'
 import { WeatherValuesKeys } from './helpers/values.types'
 
 export const CurrentWeatherCard = () => {
+    const [svgName] = useState('Sun')
     const [valuseToRender] = useState<Array<WeatherValuesKeys>>([
         'temp_c',
         'humidity',
@@ -35,9 +36,12 @@ export const CurrentWeatherCard = () => {
                     </ValueContainer>
                 </ValuesGroup>
                 <Icon
-                    name="Sun"
+                    name={svgName}
                     oncompleted={(name, elem) => {
                         console.log(name, elem)
+                    }}
+                    onerror={error => {
+                        console.log(error.message)
                     }}
                 />
             </BackgroundBlur>
