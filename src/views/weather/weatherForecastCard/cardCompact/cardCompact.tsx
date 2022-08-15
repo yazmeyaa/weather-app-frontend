@@ -4,6 +4,7 @@ import { ValuesItem, CardDate } from './cardCompact.styles'
 import { CardCompactPropsType } from './cardCompact.types'
 import { units } from '../helpers/units'
 import { valueNames } from '../helpers/values'
+import getIconByCode from 'components/icons'
 
 export const CardCompact: CardCompactPropsType = memo(function CardCompact({
     values,
@@ -20,6 +21,7 @@ export const CardCompact: CardCompactPropsType = memo(function CardCompact({
             <ValuesItem>
                 {`${valueNames.chance_of_rain} ${values.day.daily_chance_of_rain} ${units.chance_of_rain}`}
             </ValuesItem>
+            {values && getIconByCode(values.day.condition.code)}
         </Fragment>
     )
 })

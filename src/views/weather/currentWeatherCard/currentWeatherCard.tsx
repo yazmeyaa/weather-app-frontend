@@ -1,4 +1,4 @@
-import { Icon } from 'components/SVG/SVGIcon'
+import getIconByCode from 'components/icons'
 import { useContext, useState } from 'react'
 import { WeatherValuesStore } from 'store/weatherValues/weatherValuesStore'
 import {
@@ -12,7 +12,6 @@ import { displayValue } from './functions/displayValues'
 import { WeatherValuesKeys } from './helpers/values.types'
 
 export const CurrentWeatherCard = () => {
-    const [svgName] = useState('Sun')
     const [valuseToRender] = useState<Array<WeatherValuesKeys>>([
         'temp_c',
         'humidity',
@@ -35,15 +34,7 @@ export const CurrentWeatherCard = () => {
                             })}
                     </ValueContainer>
                 </ValuesGroup>
-                <Icon
-                    name={svgName}
-                    oncompleted={(name, elem) => {
-                        console.log(name, elem)
-                    }}
-                    onerror={error => {
-                        console.log(error.message)
-                    }}
-                />
+                {weatherValues && getIconByCode(weatherValues.condition.code)}
             </BackgroundBlur>
         </Wrapper>
     )

@@ -18,16 +18,16 @@ const thunder = [1087]
 
 function getIconByCode(code: number) {
     if (sun.includes(code)) {
-        return Sun
+        return <Sun fill="white" />
     } else if (cloud.includes(code)) {
-        return Cloud
+        return <Cloud fill="white" />
     } else if (rain.includes(code)) {
-        return Rain
+        return <Rain fill="white" />
     } else if (snow.includes(code)) {
-        return Snow
+        return <Snow fill="white" />
     } else if (thunder.includes(code)) {
-        return Thunder
-    } else return Sun
+        return <Thunder fill="white" />
+    } else return <Sun fill="white" />
 }
 
 export default getIconByCode
