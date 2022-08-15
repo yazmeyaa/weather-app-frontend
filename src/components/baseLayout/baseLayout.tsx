@@ -1,4 +1,4 @@
-import { Footer } from 'components/footer'
+import { Footer } from 'components/footer/footer'
 import { Header } from 'components/header'
 import { Wrapper } from './baseLayout.styles'
 import { baseLayoutType } from './baseLayout.types'

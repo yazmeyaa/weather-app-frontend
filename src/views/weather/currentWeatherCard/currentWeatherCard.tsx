@@ -20,22 +20,23 @@ export const CurrentWeatherCard = () => {
     const { weatherValues } = useContext(WeatherValuesStore)
 
     return (
-        <Wrapper>
-            <BackgroundBlur>
-                <ValuesGroup>
-                    <ValueContainer>
-                        {weatherValues &&
-                            valuseToRender.map((item, index) => {
+        weatherValues && (
+            <Wrapper conditionCode={weatherValues.condition.code}>
+                <BackgroundBlur>
+                    <ValuesGroup>
+                        <ValueContainer>
+                            {valuseToRender.map((item, index) => {
                                 return (
                                     <ValueName key={index}>
                                         {displayValue(weatherValues, item)}
                                     </ValueName>
                                 )
                             })}
-                    </ValueContainer>
-                </ValuesGroup>
-                {weatherValues && getIconByCode(weatherValues.condition.code)}
-            </BackgroundBlur>
-        </Wrapper>
+                        </ValueContainer>
+                    </ValuesGroup>
+                    {getIconByCode(weatherValues.condition.code)}
+                </BackgroundBlur>
+            </Wrapper>
+        )
     )
 }

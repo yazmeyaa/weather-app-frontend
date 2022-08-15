@@ -1,13 +1,18 @@
 import { fluidTypography } from 'components/fluidTypography'
 import styled from 'styled-components'
-import ClearSky from 'assets/images/background/clearsky.jpg'
-import { ReactSVG } from 'react-svg'
+import { getBackgroundByCode } from './helpers/getBackground'
 
-export const Wrapper = styled.div`
+type WrapperProps = {
+    conditionCode: number
+}
+
+export const Wrapper = styled.div<WrapperProps>`
     & {
         width: 100%;
         box-sizing: border-box;
-        background-image: url(${ClearSky});
+        background-image: ${props => {
+            return `url('${getBackgroundByCode(props.conditionCode)}')`
+        }};
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -52,12 +57,5 @@ export const ValueName = styled.strong`
 export const Value = styled(ValueName)`
     & {
         font-size: ${fluidTypography(320, 1920, 18, 30)};
-    }
-`
-
-export const SVG = styled(ReactSVG)`
-    & {
-        filter: invert(100%) sepia(67%) saturate(15%) hue-rotate(217deg)
-            brightness(103%) contrast(104%);
     }
 `

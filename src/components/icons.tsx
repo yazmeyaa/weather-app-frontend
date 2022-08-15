@@ -1,8 +1,8 @@
-import { ReactComponent as Sun } from 'assets/weather-icons/Sun.svg'
-import { ReactComponent as Rain } from 'assets/weather-icons/Cloud-Hail-Alt.svg'
-import { ReactComponent as Cloud } from 'assets/weather-icons/Cloud-Sun.svg'
-import { ReactComponent as Snow } from 'assets/weather-icons/Cloud-Snow.svg'
-import { ReactComponent as Thunder } from 'assets/weather-icons/Cloud-Lightning.svg'
+import { ReactComponent as Sun } from 'assets/icons/weather-icons/Sun.svg'
+import { ReactComponent as Rain } from 'assets/icons/weather-icons/Cloud-Hail-Alt.svg'
+import { ReactComponent as Cloud } from 'assets/icons/weather-icons/Cloud-Sun.svg'
+import { ReactComponent as Snow } from 'assets/icons/weather-icons/Cloud-Snow.svg'
+import { ReactComponent as Thunder } from 'assets/icons/weather-icons/Cloud-Lightning.svg'
 
 const sun = [1000]
 const cloud = [1003, 1006, 1009, 1030, 1135, 1147]
