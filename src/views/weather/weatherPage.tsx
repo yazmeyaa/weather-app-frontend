@@ -5,41 +5,34 @@ import {
     CardsWrapper,
     CityNameBlock,
 } from './weatherPage.styles'
-import { WeatherCard } from './weatherForecastCard/weatherCard'
 import { CurrentWeatherCard } from './currentWeatherCard/currentWeatherCard'
 import { withLoading } from 'shared/withLoadingHOC/withLoading'
+import { MappedForecast } from './mappedForecast/mappedForecast'
+import { Search } from './searchfield/searchfield'
 
 export const WeatherPage = () => {
-    const { weatherForecast, isLoading } = useContext(stores.weather)
-    const { currentCardSelected, setCurrentCard } = useContext(stores.cards)
+    const { weatherForecast, isLoading, location } = useContext(stores.weather)
+
+    function checkIsLoading() {
+        if (
+            isLoading.current === true ||
+            isLoading.forecast === true ||
+            isLoading.location === true
+        ) {
+            return true
+        } else return false
+    }
 
     return (
         <WeatherWrapper>
-            <Loading
-                loading={
-                    isLoading.current ||
-                    isLoading.forecast ||
-                    isLoading.location
-                }
-            >
+            <Loading loading={checkIsLoading()}>
                 <CityNameBlock>{weatherForecast?.location.name}</CityNameBlock>
+                {location && <Search cityName={location.name} />}
                 <CurrentWeatherCard />
                 <CardsWrapper>
-                    {weatherForecast &&
-                        weatherForecast.forecast.forecastday.map(
-                            (item, index) => {
-                                return (
-                                    <WeatherCard
-                                        onClick={() => {
-                                            setCurrentCard(index)
-                                        }}
-                                        selected={currentCardSelected === index}
-                                        forecastValues={item}
-                                        key={index}
-                                    />
-                                )
-                            }
-                        )}
+                    {weatherForecast && (
+                        <MappedForecast weatherForecast={weatherForecast} />
+                    )}
                 </CardsWrapper>
             </Loading>
         </WeatherWrapper>

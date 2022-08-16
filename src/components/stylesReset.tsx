@@ -32,6 +32,7 @@ html {
 	height: 100%;
 }
 body {
+	position: relative;
 	line-height: 1;
 	height: 100%;
 	background-color: #cdf5ff46;
