@@ -1,6 +1,6 @@
 import { FormEvent, useContext, useState } from 'react'
 import { stores } from 'store'
-import { Motivation } from '../motivationStatus/motivation'
+import { Motivation } from 'views/motivationStatus/motivation'
 import {
     InputWrapper,
     SearchButton,

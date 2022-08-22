@@ -1,5 +1,5 @@
 import { useWeather } from 'hooks/useWeather'
-import { createContext, useEffect, useLayoutEffect, useMemo } from 'react'
+import { createContext, useEffect, useMemo } from 'react'
 import {
     WeatherValuesProviderProps,
     WeatherValuesContextType,
@@ -27,7 +27,7 @@ export const WeatherValues: WeatherValuesProviderProps = ({ children }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (location) {
             getForecast(location.name, 3)
         }
