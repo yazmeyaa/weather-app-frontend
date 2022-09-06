@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# ☁️ Weather application ☀️
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Application uses system variables
+### `REACT_APP_BACKEND_URL` by default it is 'https://yazmeyaa.itracers.xyz/'
+### `REACT_APP_URL_SUBPATCH` if you need to run this app in subpath like https://website.com/myapplications/`WEATHER`
 
 ## Available Scripts
 
