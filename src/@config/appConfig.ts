@@ -9,7 +9,7 @@ function getValueByName(value: string | undefined, defaultValue = '') {
 }
 
 export const appConfig = {
-    backendUrl: getValueByName(backendUrl, 'localhost:3000'),
+    backendUrl: getValueByName(backendUrl, 'https://yazmeyaa.itracers.xyz'),
     nodeEnv: getValueByName(nodeEnv, 'production'),
     URLSubPatch: getValueByName(URLSubPatch, undefined),
 }
